@@ -10,6 +10,14 @@ const routes = [
         path: "/",
         element: lazy(() => import("../pages/HomeTemplate/Home")),
       },
+      {
+        path: "info",
+        element: lazy(() => import("../pages/HomeTemplate/Info")),
+      },
+      {
+        path: "contact",
+        element: lazy(() => import("../pages/HomeTemplate/Contact")),
+      },
     ],
   },
 ];

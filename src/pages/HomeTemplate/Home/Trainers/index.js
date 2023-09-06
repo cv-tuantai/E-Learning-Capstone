@@ -1,23 +1,26 @@
 import React from "react";
+import trainer1 from "../../../../../src/assets/images/trainer-1.jpg";
+import trainer2 from "../../../../../src/assets/images/trainer-2.jpg";
+import trainer3 from "../../../../../src/assets/images/trainer-3.jpg";
 
 export default function Trainers() {
   return (
     <section id="trainers" className="trainers">
       <div className="container" data-aos="fade-up">
+        <div className="section-title">
+          <h2>Giảng viên</h2>
+          <p>Giảng viên nổi bật</p>
+        </div>
         <div className="row" data-aos="zoom-in" data-aos-delay={100}>
           <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div className="member">
-              <img
-                src="assets/img/trainers/trainer-1.jpg"
-                className="img-fluid"
-                alt
-              />
+              <img src={trainer1} className="img-fluid" alt="..." />
               <div className="member-content">
                 <h4>Walter White</h4>
-                <span>Web Development</span>
+                <span>Lập trình Frontend</span>
                 <p>
-                  Magni qui quod omnis unde et eos fuga et exercitationem. Odio
-                  veritatis perspiciatis quaerat qui aut aut aut
+                  Giảng viên giày dặn kinh nghiệm và có nhiều tâm huyết với
+                  nghề, trải qua trên 10 năm kinh nghiệm
                 </p>
                 <div className="social">
                   <a href>
@@ -38,17 +41,13 @@ export default function Trainers() {
           </div>
           <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div className="member">
-              <img
-                src="assets/img/trainers/trainer-2.jpg"
-                className="img-fluid"
-                alt
-              />
+              <img src={trainer2} className="img-fluid" alt="..." />
               <div className="member-content">
                 <h4>Sarah Jhinson</h4>
-                <span>Marketing</span>
+                <span>Lập trình Backend</span>
                 <p>
-                  Repellat fugiat adipisci nemo illum nesciunt voluptas
-                  repellendus. In architecto rerum rerum temporibus
+                  Giảng viên giày dặn kinh nghiệm và có nhiều tâm huyết với
+                  nghề, trải qua trên 10 năm kinh nghiệm
                 </p>
                 <div className="social">
                   <a href>
@@ -69,17 +68,13 @@ export default function Trainers() {
           </div>
           <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div className="member">
-              <img
-                src="assets/img/trainers/trainer-3.jpg"
-                className="img-fluid"
-                alt
-              />
+              <img src={trainer3} className="img-fluid" alt="..." />
               <div className="member-content">
                 <h4>William Anderson</h4>
-                <span>Content</span>
+                <span>Lập trình Fullstack</span>
                 <p>
-                  Voluptas necessitatibus occaecati quia. Earum totam
-                  consequuntur qui porro et laborum toro des clara
+                  Giảng viên giày dặn kinh nghiệm và có nhiều tâm huyết với
+                  nghề, trải qua trên 10 năm kinh nghiệm
                 </p>
                 <div className="social">
                   <a href>

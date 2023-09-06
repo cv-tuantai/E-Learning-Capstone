@@ -90,7 +90,7 @@ export default function Footer() {
             <div className="col-lg-4 col-md-6 footer-newsletter">
               <h4>Đăng ký theo dõi</h4>
               <p>Hãy đăng ký để nhận được những khóa học mới nhất nhé.</p>
-              <form method="post">
+              <form>
                 <input type="email" name="email" />
                 <input type="submit" defaultValue="Subscribe" />
               </form>

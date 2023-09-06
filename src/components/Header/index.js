@@ -1,11 +1,12 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
 export default function Header() {
   return (
     <header id="header" className="fixed-top">
       <div className="container d-flex align-items-center justify-content-between">
         <h1 className="logo">
-          <a href="index.html">E-Learning</a>
+          <Link to="/">E-Learning</Link>
         </h1>
 
         <nav id="navbar" className="navbar order-last order-lg-0">
@@ -36,13 +37,16 @@ export default function Header() {
               </ul>
             </li>
             <li>
+              <NavLink to="/">Trang chủ</NavLink>
+            </li>
+            <li>
               <a href="about.html">Khóa học</a>
             </li>
             <li>
-              <a href="courses.html">Blog</a>
+              <NavLink to="/info">Thông tin</NavLink>
             </li>
             <li>
-              <a href="trainers.html">Thông tin</a>
+              <NavLink to="contact">Liên hệ</NavLink>
             </li>
           </ul>
           <i className="bi bi-list mobile-nav-toggle" />

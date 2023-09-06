@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import CourseItem from "./CourseItem";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchListCourses } from "./duck/actions";
+import Loader from "../../../../components/Loader";
 
 export default function Courses() {
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.listCoursesReducer);
+
+  useEffect(() => {
+    dispatch(fetchListCourses());
+  }, []);
+
+  const renderCourses = () => {
+    if (loading) return <Loader />;
+    return data?.slice(0, 9).map((course) => {
+      return <CourseItem course={course} key={course.maKhoaHoc} />;
+    });
+  };
+
   return (
     <section id="popular-courses" className="courses">
       <div className="container" data-aos="fade-up">
@@ -9,120 +27,7 @@ export default function Courses() {
           <p>Khóa học nổi bật</p>
         </div>
         <div className="row" data-aos="zoom-in" data-aos-delay={100}>
-          <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div className="course-item">
-              <img
-                src="assets/img/course-1.jpg"
-                className="img-fluid"
-                alt="..."
-              />
-              <div className="course-content">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Web Development</h4>
-                  <p className="price">$169</p>
-                </div>
-                <h3>
-                  <a href="course-details.html">Website Design</a>
-                </h3>
-                <p>
-                  Et architecto provident deleniti facere repellat nobis iste.
-                  Id facere quia quae dolores dolorem tempore.
-                </p>
-                <div className="trainer d-flex justify-content-between align-items-center">
-                  <div className="trainer-profile d-flex align-items-center">
-                    <img
-                      src="assets/img/trainers/trainer-1.jpg"
-                      className="img-fluid"
-                      alt
-                    />
-                    <span>Antonio</span>
-                  </div>
-                  <div className="trainer-rank d-flex align-items-center">
-                    <i className="bx bx-user" />
-                    &nbsp;50 &nbsp;&nbsp;
-                    <i className="bx bx-heart" />
-                    &nbsp;65
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
-            <div className="course-item">
-              <img
-                src="assets/img/course-2.jpg"
-                className="img-fluid"
-                alt="..."
-              />
-              <div className="course-content">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Marketing</h4>
-                  <p className="price">$250</p>
-                </div>
-                <h3>
-                  <a href="course-details.html">Search Engine Optimization</a>
-                </h3>
-                <p>
-                  Et architecto provident deleniti facere repellat nobis iste.
-                  Id facere quia quae dolores dolorem tempore.
-                </p>
-                <div className="trainer d-flex justify-content-between align-items-center">
-                  <div className="trainer-profile d-flex align-items-center">
-                    <img
-                      src="assets/img/trainers/trainer-2.jpg"
-                      className="img-fluid"
-                      alt
-                    />
-                    <span>Lana</span>
-                  </div>
-                  <div className="trainer-rank d-flex align-items-center">
-                    <i className="bx bx-user" />
-                    &nbsp;35 &nbsp;&nbsp;
-                    <i className="bx bx-heart" />
-                    &nbsp;42
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0">
-            <div className="course-item">
-              <img
-                src="assets/img/course-3.jpg"
-                className="img-fluid"
-                alt="..."
-              />
-              <div className="course-content">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                  <h4>Content</h4>
-                  <p className="price">$180</p>
-                </div>
-                <h3>
-                  <a href="course-details.html">Copywriting</a>
-                </h3>
-                <p>
-                  Et architecto provident deleniti facere repellat nobis iste.
-                  Id facere quia quae dolores dolorem tempore.
-                </p>
-                <div className="trainer d-flex justify-content-between align-items-center">
-                  <div className="trainer-profile d-flex align-items-center">
-                    <img
-                      src="assets/img/trainers/trainer-3.jpg"
-                      className="img-fluid"
-                      alt
-                    />
-                    <span>Brandon</span>
-                  </div>
-                  <div className="trainer-rank d-flex align-items-center">
-                    <i className="bx bx-user" />
-                    &nbsp;20 &nbsp;&nbsp;
-                    <i className="bx bx-heart" />
-                    &nbsp;85
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {renderCourses()}
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { Link } from "react-router-dom";
 
 export default function Carousel() {
   useEffect(() => {
@@ -28,9 +29,9 @@ export default function Carousel() {
           Leading Tomorrow
         </h1>
         <h2 className="pt-3">Chào mừng đến với hệ thống E-learning</h2>
-        <a href="courses.html" className="btn-get-started">
+        <Link to="/all-courses" className="btn-get-started">
           Bắt đầu nào
-        </a>
+        </Link>
       </div>
     </section>
   );

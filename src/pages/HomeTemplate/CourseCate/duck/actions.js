@@ -1,5 +1,5 @@
 import * as actionTypes from "./constants";
-import api from "../../../../../utils/apiUtil";
+import api from "../../../../utils/apiUtil";
 
 export const fetchCoursesByCate = (cate) => {
   return (dispatch) => {

@@ -37,7 +37,7 @@ export default function Header() {
               <ul>{renderCourseCate()}</ul>
             </li>
             <li>
-              <a href="about.html">Khóa học</a>
+              <NavLink to="all-courses">Khóa học</NavLink>
             </li>
             <li>
               <NavLink to="/info">Thông tin</NavLink>

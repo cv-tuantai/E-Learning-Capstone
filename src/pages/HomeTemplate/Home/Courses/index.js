@@ -14,8 +14,8 @@ export default function Courses() {
 
   const renderCourses = () => {
     if (loading) return <Loader />;
-    return data?.slice(0, 9).map((course) => {
-      return <CourseItem course={course} key={course.maKhoaHoc} />;
+    return data?.slice(0, 9).map((course, index) => {
+      return <CourseItem course={course} key={index} />;
     });
   };
 

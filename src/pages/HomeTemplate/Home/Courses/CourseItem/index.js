@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function CourseItem(props) {
   const { course } = props;
@@ -14,6 +15,11 @@ export default function CourseItem(props) {
             objectFit: "cover",
             objectPosition: "center",
           }}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src =
+              "https://canhme.com/wp-content/uploads/2018/09/Nodejs.png";
+          }}
           alt="img"
         />
         <div className="course-content">
@@ -22,7 +28,9 @@ export default function CourseItem(props) {
             <p className="price">$169</p>
           </div>
           <h3>
-            <a href="course-details.html">{course.tenKhoaHoc}</a>
+            <Link to={`/detail-course/${course.maKhoaHoc}`}>
+              {course.tenKhoaHoc}
+            </Link>
           </h3>
           <p>
             {course.moTa.length > 150

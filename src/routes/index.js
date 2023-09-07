@@ -26,6 +26,10 @@ const routes = [
         path: "all-courses",
         element: lazy(() => import("../pages/HomeTemplate/AllCourses")),
       },
+      {
+        path: "detail-course/:maKhoaHoc",
+        element: lazy(() => import("../pages/HomeTemplate/DetailCourse")),
+      },
     ],
   },
 ];

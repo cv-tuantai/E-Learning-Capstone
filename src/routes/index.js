@@ -30,6 +30,10 @@ const routes = [
         path: "detail-course/:maKhoaHoc",
         element: lazy(() => import("../pages/HomeTemplate/DetailCourse")),
       },
+      {
+        path: "seach/:keyword",
+        element: lazy(() => import("../pages/HomeTemplate/SearchPage")),
+      },
     ],
   },
 ];

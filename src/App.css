@@ -251,6 +251,18 @@
   }
 }
 
+@media (max-width: 767px) {
+  .header-search {
+    display: none;
+  }
+}
+
+@media (max-width: 460px) {
+  header .logo a {
+    font-size: 19px;
+  }
+}
+
 /**
   * Mobile Navigation 
   */
@@ -267,7 +279,7 @@
   color: #fff;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
   .mobile-nav-toggle {
     display: block;
   }

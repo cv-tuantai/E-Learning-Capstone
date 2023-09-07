@@ -1,9 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { fetchCoursesCate } from "./duck/actions";
+import { Input } from "antd";
+
+const { Search } = Input;
 
 export default function Header() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.courseCategoryReducer);
 
@@ -21,6 +25,10 @@ export default function Header() {
     dispatch(fetchCoursesCate());
   }, []);
 
+  const onSearch = (keyword) =>
+    navigate(`/seach/${keyword}`, { replace: true });
+  console.log(data);
+
   return (
     <header id="header" className="fixed-top">
       <div className="container d-flex align-items-center justify-content-between">
@@ -28,7 +36,16 @@ export default function Header() {
           <Link to="/">E-Learning</Link>
         </h1>
 
-        <nav id="navbar" className="navbar order-last order-lg-0">
+        <Search
+          placeholder="Tìm khóa học"
+          onSearch={onSearch}
+          className="header-search"
+          style={{
+            width: 200,
+          }}
+        />
+
+        <nav id="navbar" className="navbar order-last order-xl-0">
           <ul>
             <li className="dropdown">
               <Link to="/">

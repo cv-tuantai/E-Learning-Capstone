@@ -1,12 +1,16 @@
 import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 
-export const fetchListCourses = () => {
+export const fetchListCourses = (keyword = "") => {
   return (dispatch) => {
     dispatch(actListCoursesRequest());
 
+    const url = keyword
+      ? `QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${keyword}&MaNhom=GP09`
+      : "QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP09";
+
     api
-      .get("QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP09")
+      .get(url)
       .then((result) => {
         console.log(result);
         dispatch(actListCoursesSuccess(result.data));

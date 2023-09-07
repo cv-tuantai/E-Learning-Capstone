@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -29,28 +30,34 @@ export default function Footer() {
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Trang chủ</a>
+                  <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+                    Trang chủ
+                  </Link>
                 </li>
                 <li>
                   <i
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Khóa học</a>
+                  <Link to="/all-courses">Khóa học</Link>
                 </li>
                 <li>
                   <i
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Blog</a>
+                  <Link to="/info" onClick={() => window.scrollTo(0, 0)}>
+                    Thông tin
+                  </Link>
                 </li>
                 <li>
                   <i
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Thông tin</a>
+                  <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
+                    Liên hệ
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -62,28 +69,28 @@ export default function Footer() {
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Frontend</a>
+                  <a href="#!">Frontend</a>
                 </li>
                 <li>
                   <i
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Backend</a>
+                  <a href="#!">Backend</a>
                 </li>
                 <li>
                   <i
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">Fullstack</a>
+                  <a href="#!">Fullstack</a>
                 </li>
                 <li>
                   <i
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#">NodeJS</a>
+                  <a href="#!">NodeJS</a>
                 </li>
               </ul>
             </div>
@@ -92,7 +99,11 @@ export default function Footer() {
               <p>Hãy đăng ký để nhận được những khóa học mới nhất nhé.</p>
               <form>
                 <input type="email" name="email" />
-                <input type="submit" defaultValue="Subscribe" />
+                <input
+                  type="submit"
+                  defaultValue="Subscribe"
+                  onClick={(e) => e.preventDefault()}
+                />
               </form>
             </div>
           </div>
@@ -109,19 +120,19 @@ export default function Footer() {
           </div>
         </div>
         <div className="social-links text-center text-md-right pt-3 pt-md-0">
-          <a href="#" className="twitter">
+          <a href="#!" className="twitter">
             <i style={{ fontSize: 15 }} className="bi bi-twitter"></i>
           </a>
-          <a href="#" className="facebook">
+          <a href="#!" className="facebook">
             <i style={{ fontSize: 15 }} className="bi bi-facebook"></i>
           </a>
-          <a href="#" className="instagram">
+          <a href="#!" className="instagram">
             <i style={{ fontSize: 15 }} className="bi bi-instagram"></i>
           </a>
-          <a href="#" className="google-plus">
+          <a href="#!" className="google-plus">
             <i style={{ fontSize: 15 }} className="bi bi-google"></i>
           </a>
-          <a href="#" className="linkedin">
+          <a href="#!" className="linkedin">
             <i style={{ fontSize: 15 }} className="bi bi-linkedin"></i>
           </a>
         </div>

@@ -13,7 +13,7 @@ export default function Trainers() {
         </div>
         <div className="row" data-aos="zoom-in" data-aos-delay={100}>
           <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div className="member">
+            <div className="member card-container">
               <img src={trainer1} className="img-fluid" alt="..." />
               <div className="member-content">
                 <h4>Walter White</h4>
@@ -23,16 +23,16 @@ export default function Trainers() {
                   nghề, trải qua trên 10 năm kinh nghiệm
                 </p>
                 <div className="social">
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-twitter" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-facebook" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-instagram" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-linkedin" />
                   </a>
                 </div>
@@ -40,7 +40,7 @@ export default function Trainers() {
             </div>
           </div>
           <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div className="member">
+            <div className="member card-container">
               <img src={trainer2} className="img-fluid" alt="..." />
               <div className="member-content">
                 <h4>Sarah Jhinson</h4>
@@ -50,16 +50,16 @@ export default function Trainers() {
                   nghề, trải qua trên 10 năm kinh nghiệm
                 </p>
                 <div className="social">
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-twitter" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-facebook" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-instagram" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-linkedin" />
                   </a>
                 </div>
@@ -67,7 +67,7 @@ export default function Trainers() {
             </div>
           </div>
           <div className="col-lg-4 col-md-6 d-flex align-items-stretch">
-            <div className="member">
+            <div className="member card-container">
               <img src={trainer3} className="img-fluid" alt="..." />
               <div className="member-content">
                 <h4>William Anderson</h4>
@@ -77,16 +77,16 @@ export default function Trainers() {
                   nghề, trải qua trên 10 năm kinh nghiệm
                 </p>
                 <div className="social">
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-twitter" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-facebook" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-instagram" />
                   </a>
-                  <a href>
+                  <a href="#">
                     <i className="bi bi-linkedin" />
                   </a>
                 </div>

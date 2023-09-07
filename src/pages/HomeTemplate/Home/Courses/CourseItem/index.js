@@ -5,7 +5,7 @@ export default function CourseItem(props) {
 
   return (
     <div className="col-lg-4 col-md-6 d-flex align-items-stretch pb-4">
-      <div className="course-item">
+      <div className="course-item card-container">
         <img
           src={course.hinhAnh}
           style={{

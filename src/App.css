@@ -656,6 +656,17 @@ section {
   color: #657a6d;
 }
 
+.card-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+.card-container:hover {
+  transform: scale(1.05);
+}
+
 /*--------------------------------------------------------------
   # Trainers
   --------------------------------------------------------------*/

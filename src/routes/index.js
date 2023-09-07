@@ -18,6 +18,10 @@ const routes = [
         path: "contact",
         element: lazy(() => import("../pages/HomeTemplate/Contact")),
       },
+      {
+        path: "coursecate/:cate",
+        element: lazy(() => import("../pages/HomeTemplate/CourseCate")),
+      },
     ],
   },
 ];

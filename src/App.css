@@ -625,6 +625,7 @@ section {
   padding: 7px 14px;
   color: #fff;
   margin: 0;
+  margin-top: -3rem;
 }
 
 .courses .course-content .price {

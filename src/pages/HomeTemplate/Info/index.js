@@ -40,7 +40,7 @@ export default function Info() {
               <img src={img2} alt="..." />
             </div>
             <div className="col-md-6">
-              <h6>Chương trình học V learning</h6>
+              <h6>Chương trình học E-Learning</h6>
               <h5>Hệ thống học hàng đầu</h5>
               <p>
                 Giảng viên đều là các chuyên viên thiết kế đồ họa và giảng viên
@@ -57,7 +57,7 @@ export default function Info() {
         <div className="InfoItem">
           <div className="row">
             <div className="col-md-6">
-              <h6>Tầm nhìn V learning</h6>
+              <h6>Tầm nhìn E-Learning</h6>
               <h5>Đào tạo lập trình chuyên sâu</h5>
               <p>
                 Trở thành hệ thống đào tạo lập trình chuyên sâu theo nghề hàng
@@ -80,14 +80,14 @@ export default function Info() {
               <img src={img4} alt="" />
             </div>
             <div className="col-md-6">
-              <h6>Sứ mệnh V learning</h6>
+              <h6>Sứ mệnh E-Learning</h6>
               <h5>Phương pháp đào tạo hiện đại</h5>
               <p>
                 Sử dụng các phương pháp đào tạo tiên tiến và hiện đại trên nền
                 tảng công nghệ giáo dục, kết hợp phương pháp truyền thống,
                 phương pháp trực tuyến, lớp học đảo ngược và học tập dựa trên dự
                 án thực tế, phối hợp giữa đội ngũ training nhiều kinh nghiệm và
-                yêu cầu từ các công ty, doanh nghiệp. Qua đó, V learning giúp
+                yêu cầu từ các công ty, doanh nghiệp. Qua đó, E-Learning giúp
                 người học phát triển cả tư duy, phân tích, chuyên sâu nghề
                 nghiệp, học tập suốt đời, sẵn sàng đáp ứng mọi nhu cầu của doanh
                 nghiệp.

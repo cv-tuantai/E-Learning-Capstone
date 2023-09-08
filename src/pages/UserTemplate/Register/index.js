@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import imgReg from "../../../assets/images/login.webp";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   const [isChecked, setIsChecked] = useState(false);
@@ -82,7 +83,7 @@ export default function Register() {
                           />
                         </div>
                       </div>
-                      <div className="form-check d-flex justify-content-center mb-5">
+                      <div className="form-check d-flex justify-content-center mb-3">
                         <input
                           className="form-check-input me-2"
                           type="checkbox"
@@ -102,7 +103,24 @@ export default function Register() {
                         >
                           Đăng ký
                         </button>
+                        <Link to="/login">
+                          <button
+                            type="button"
+                            className="btn btn-success btn-lg ms-3"
+                          >
+                            Đăng nhập
+                          </button>
+                        </Link>
                       </div>
+                      <p
+                        className="my-4 pb-lg-2 text-center"
+                        style={{ color: "#393f81" }}
+                      >
+                        Quay lại{" "}
+                        <Link to="/" style={{ color: "#393f81" }}>
+                          <span className="text-danger">Trang chủ</span>
+                        </Link>
+                      </p>
                     </form>
                   </div>
                   <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">

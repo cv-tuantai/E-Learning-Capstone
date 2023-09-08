@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { fetchCoursesCate } from "./duck/actions";
@@ -10,6 +10,8 @@ export default function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.courseCategoryReducer);
+
+  const [keyword, setKeyword] = useState("");
 
   const renderCourseCate = () => {
     return data?.map((cate, index) => {
@@ -25,9 +27,12 @@ export default function Header() {
     dispatch(fetchCoursesCate());
   }, []);
 
-  const onSearch = (keyword) =>
-    navigate(`/seach/${keyword}`, { replace: true });
-  console.log(data);
+  const onSearch = (keyword) => {
+    if (keyword) {
+      navigate(`/seach/${keyword}`, { replace: true });
+      setKeyword("");
+    }
+  };
 
   const handleMobileNavToggle = () => {
     const navbar = document.querySelector("#navbar");
@@ -55,7 +60,9 @@ export default function Header() {
 
         <Search
           placeholder="Tìm khóa học"
+          onChange={(e) => setKeyword(e.target.value)}
           onSearch={onSearch}
+          value={keyword}
           style={{
             width: 200,
           }}
@@ -89,9 +96,9 @@ export default function Header() {
           <Link to="/login" className="btn">
             Đăng nhập
           </Link>
-          <a href="courses.html" className="get-started-btn">
+          <Link to="/register" className="get-started-btn">
             Đăng ký
-          </a>
+          </Link>
         </div>
       </div>
     </header>

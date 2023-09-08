@@ -36,6 +36,14 @@ const routes = [
       },
     ],
   },
+  {
+    path: "login",
+    element: lazy(() => import("../pages/UserTemplate/Login")),
+  },
+  {
+    path: "register",
+    element: lazy(() => import("../pages/UserTemplate/Register")),
+  },
 ];
 
 const renderRoutes = () => {

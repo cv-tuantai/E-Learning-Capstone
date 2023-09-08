@@ -86,9 +86,9 @@ export default function Header() {
         </nav>
 
         <div>
-          <a href="courses.html" className="btn">
+          <Link to="/login" className="btn">
             Đăng nhập
-          </a>
+          </Link>
           <a href="courses.html" className="get-started-btn">
             Đăng ký
           </a>

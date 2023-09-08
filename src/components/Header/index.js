@@ -29,9 +29,26 @@ export default function Header() {
     navigate(`/seach/${keyword}`, { replace: true });
   console.log(data);
 
+  const handleMobileNavToggle = () => {
+    const navbar = document.querySelector("#navbar");
+    const mobileNavToggle = document.querySelector(".mobile-nav-toggle");
+    navbar.classList.toggle("navbar-mobile");
+    mobileNavToggle.classList.toggle("bi-list");
+    mobileNavToggle.classList.toggle("bi-x");
+  };
+
+  const handleDropdownClick = (e) => {
+    const navbar = document.querySelector("#navbar");
+    const dropdown = e.currentTarget.nextElementSibling;
+    if (navbar.classList.contains("navbar-mobile")) {
+      e.preventDefault();
+      dropdown.classList.toggle("dropdown-active");
+    }
+  };
+
   return (
     <header id="header" className="fixed-top">
-      <div className="container d-flex align-items-center justify-content-between">
+      <div className="container-fluid container-lg d-flex align-items-center justify-content-between">
         <h1 className="logo">
           <Link to="/">E-Learning</Link>
         </h1>
@@ -39,7 +56,6 @@ export default function Header() {
         <Search
           placeholder="Tìm khóa học"
           onSearch={onSearch}
-          className="header-search"
           style={{
             width: 200,
           }}
@@ -48,7 +64,7 @@ export default function Header() {
         <nav id="navbar" className="navbar order-last order-xl-0">
           <ul>
             <li className="dropdown">
-              <Link to="/">
+              <Link to="/" onClick={handleDropdownClick}>
                 <span>Danh mục</span> <i className="bi bi-chevron-down" />
               </Link>
               <ul>{renderCourseCate()}</ul>
@@ -63,7 +79,10 @@ export default function Header() {
               <NavLink to="contact">Liên hệ</NavLink>
             </li>
           </ul>
-          <i className="bi bi-list mobile-nav-toggle" />
+          <i
+            className="bi bi-list mobile-nav-toggle"
+            onClick={handleMobileNavToggle}
+          />
         </nav>
 
         <div>

@@ -1,6 +1,15 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
+import * as yup from "yup";
 
 export default function Contact() {
+  const schema = yup.object().shape({
+    name: yup.string().required("Họ tên không để trống!"),
+    email: yup.string().required("Email không để trống!"),
+    subject: yup.string().required("Tiêu đề không để trống!"),
+    message: yup.string().required("Tin nhắn không để trống!"),
+  });
+
   return (
     <section id="contact" className="contact" style={{ paddingTop: "7rem" }}>
       <h2 className="text-center pb-3">Liên hệ chúng tôi!</h2>
@@ -34,56 +43,81 @@ export default function Contact() {
             </div>
           </div>
           <div className="col-lg-8 mt-5 mt-lg-0">
-            <form className="php-email-form">
-              <div className="row">
-                <div className="col-md-6 form-group">
-                  <input
-                    type="text"
-                    name="name"
-                    className="form-control"
-                    id="name"
-                    placeholder="Tên của bạn"
-                    required
-                  />
-                </div>
-                <div className="col-md-6 form-group mt-3 mt-md-0">
-                  <input
-                    type="email"
-                    className="form-control"
-                    name="email"
-                    id="email"
-                    placeholder="Email của bạn"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="form-group mt-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  name="subject"
-                  id="subject"
-                  placeholder="Tiêu đề"
-                  required
-                />
-              </div>
-              <div className="form-group mt-3">
-                <textarea
-                  className="form-control"
-                  name="message"
-                  rows={5}
-                  placeholder="Tin nhắn"
-                  required
-                  defaultValue={""}
-                />
-              </div>
+            <Formik
+              initialValues={{
+                name: "",
+                email: "",
+                subject: "",
+                message: "",
+              }}
+              validationSchema={schema}
+            >
+              {() => (
+                <Form className="php-email-form">
+                  <div className="row">
+                    <div className="col-md-6 form-group">
+                      <Field
+                        type="text"
+                        name="name"
+                        className="form-control"
+                        placeholder="Tên của bạn"
+                      />
+                      <ErrorMessage
+                        name="name"
+                        component="div"
+                        style={{ color: "red" }}
+                      />
+                    </div>
+                    <div className="col-md-6 form-group mt-3 mt-md-0">
+                      <Field
+                        type="email"
+                        className="form-control"
+                        name="email"
+                        placeholder="Email của bạn"
+                      />
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        style={{ color: "red" }}
+                      />
+                    </div>
+                  </div>
+                  <div className="form-group mt-3">
+                    <Field
+                      type="text"
+                      className="form-control"
+                      name="subject"
+                      placeholder="Tiêu đề"
+                    />
+                    <ErrorMessage
+                      name="subject"
+                      component="div"
+                      style={{ color: "red" }}
+                    />
+                  </div>
+                  <div className="form-group mt-3">
+                    <Field
+                      className="form-control"
+                      as="textarea"
+                      name="message"
+                      rows={5}
+                      placeholder="Tin nhắn"
+                    />
+                    <ErrorMessage
+                      name="message"
+                      component="div"
+                      style={{ color: "red" }}
+                    />
+                  </div>
 
-              <div className="text-center">
-                <button type="submit" onClick={(e) => e.preventDefault()}>
-                  Send Message
-                </button>
-              </div>
-            </form>
+                  <div className="text-center">
+                    <button type="submit" onClick={(e) => e.preventDefault()}>
+                      Send Message
+                    </button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
           </div>
         </div>
       </div>

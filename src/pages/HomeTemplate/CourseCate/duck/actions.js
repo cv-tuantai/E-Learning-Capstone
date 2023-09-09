@@ -8,7 +8,6 @@ export const fetchCoursesByCate = (cate) => {
     api
       .get(`QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${cate}&MaNhom=GP09`)
       .then((result) => {
-        console.log(result);
         dispatch(actCourseByCateSuccess(result.data));
       })
       .catch((error) => dispatch(actCourseByCateFail(error)));

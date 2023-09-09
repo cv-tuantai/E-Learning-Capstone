@@ -8,7 +8,6 @@ export const getDetailCourse = (maKhoaHoc) => {
     api
       .get(`QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`)
       .then((result) => {
-        console.log(result);
         dispatch(actDetailCourseSuccess(result.data));
       })
       .catch((error) => dispatch(actDetailCourseFail(error)));

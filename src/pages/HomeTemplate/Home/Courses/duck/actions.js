@@ -12,7 +12,6 @@ export const fetchListCourses = (keyword = "") => {
     api
       .get(url)
       .then((result) => {
-        console.log(result);
         dispatch(actListCoursesSuccess(result.data));
       })
       .catch((error) => {

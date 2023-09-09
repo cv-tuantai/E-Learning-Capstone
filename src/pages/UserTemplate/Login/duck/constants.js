@@ -1,0 +1,4 @@
+export const LOGIN_REQUEST = "@@loginReducer/LOGIN_REQUEST";
+export const LOGIN_SUCCESS = "@@loginReducer/LOGIN_SUCCESS";
+export const LOGIN_FAIL = "@@loginReducer/LOGIN_FAIL";
+export const LOGIN_CLEAN = "@@loginReducer/LOGIN_CLEAN";

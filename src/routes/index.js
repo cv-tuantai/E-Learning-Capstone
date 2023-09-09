@@ -37,12 +37,22 @@ const routes = [
     ],
   },
   {
-    path: "login",
-    element: lazy(() => import("../pages/UserTemplate/Login")),
-  },
-  {
-    path: "register",
-    element: lazy(() => import("../pages/UserTemplate/Register")),
+    path: "user",
+    element: lazy(() => import("../pages/UserTemplate")),
+    nested: [
+      {
+        path: "login",
+        element: lazy(() => import("../pages/UserTemplate/Login")),
+      },
+      {
+        path: "register",
+        element: lazy(() => import("../pages/UserTemplate/Register")),
+      },
+      {
+        path: "profile",
+        element: lazy(() => import("../pages/UserTemplate/Profile")),
+      },
+    ],
   },
 ];
 

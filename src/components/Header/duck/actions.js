@@ -8,7 +8,6 @@ export const fetchCoursesCate = () => {
     api
       .get("QuanLyKhoaHoc/LayDanhMucKhoaHoc")
       .then((result) => {
-        console.log(result);
         dispatch(actCoursesCateSuccess(result.data));
       })
       .catch((error) => dispatch(actCoursesCateFail(error)));

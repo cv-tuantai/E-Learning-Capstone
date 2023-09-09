@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { fetchCoursesCate } from "./duck/actions";
 import { Input } from "antd";
+import { actLogout } from "../../pages/UserTemplate/Login/duck/actions";
 
 const { Search } = Input;
 
@@ -51,6 +52,53 @@ export default function Header() {
     }
   };
 
+  const renderLogin = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      return (
+        <div>
+          <Link to="/user/login" className="btn">
+            Đăng nhập
+          </Link>
+          <Link to="/user/register" className="get-started-btn">
+            Đăng ký
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div className="btn-group">
+          <button
+            type="button"
+            className="btn btn-success dropdown-toggle"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            {user.taiKhoan}
+          </button>
+          <ul className="dropdown-menu">
+            <li>
+              <Link className="dropdown-item" to="/user/profile">
+                Thông tin tài khoản
+              </Link>
+            </li>
+            <li>
+              <hr className="dropdown-divider" />
+            </li>
+            <li>
+              <button
+                className="dropdown-item"
+                onClick={() => dispatch(actLogout(navigate))}
+              >
+                Đăng xuất
+              </button>
+            </li>
+          </ul>
+        </div>
+      );
+    }
+  };
+
   return (
     <header id="header" className="fixed-top">
       <div className="container-fluid container-lg d-flex align-items-center justify-content-between">
@@ -77,13 +125,13 @@ export default function Header() {
               <ul>{renderCourseCate()}</ul>
             </li>
             <li>
-              <NavLink to="all-courses">Khóa học</NavLink>
+              <NavLink to="/all-courses">Khóa học</NavLink>
             </li>
             <li>
               <NavLink to="/info">Thông tin</NavLink>
             </li>
             <li>
-              <NavLink to="contact">Liên hệ</NavLink>
+              <NavLink to="/contact">Liên hệ</NavLink>
             </li>
           </ul>
           <i
@@ -92,14 +140,7 @@ export default function Header() {
           />
         </nav>
 
-        <div>
-          <Link to="/login" className="btn">
-            Đăng nhập
-          </Link>
-          <Link to="/register" className="get-started-btn">
-            Đăng ký
-          </Link>
-        </div>
+        {renderLogin()}
       </div>
     </header>
   );

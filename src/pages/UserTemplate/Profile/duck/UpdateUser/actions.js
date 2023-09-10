@@ -1,20 +1,7 @@
 import * as actionTypes from "./constants";
-import api from "../../../../utils/apiUtil";
+import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
-
-export const getUserDetail = () => {
-  return (dispatch) => {
-    dispatch(getUserDetailRequest());
-
-    api
-      .post("QuanLyNguoiDung/ThongTinTaiKhoan")
-      .then((result) => {
-        console.log(result);
-        dispatch(getUserDetailSuccess(result.data));
-      })
-      .catch((error) => dispatch(getUserDetailFail(error)));
-  };
-};
+import { getUserDetail } from "../UserDetail/actions";
 
 export const updateUser = (data) => {
   return (dispatch) => {
@@ -42,20 +29,6 @@ export const updateUser = (data) => {
       });
   };
 };
-
-const getUserDetailRequest = () => ({
-  type: actionTypes.GET_USER_DETAIL_REQUEST,
-});
-
-const getUserDetailSuccess = (data) => ({
-  type: actionTypes.GET_USER_DETAIL_SUCCESS,
-  payload: data,
-});
-
-const getUserDetailFail = (error) => ({
-  type: actionTypes.GET_USER_DETAIL_FAIL,
-  payload: error,
-});
 
 const updateUserRequest = () => ({ type: actionTypes.UPDATE_USER_REQUEST });
 

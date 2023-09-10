@@ -2,11 +2,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { actTryLogout } from "../Login/duck/actions";
-import { getUserDetail, updateUser } from "./duck/actions";
+import { getUserDetail } from "./duck/UserDetail/actions";
+import { updateUser } from "./duck/UpdateUser/actions";
 import avatar from "../../../assets/images/avatar.png";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as yup from "yup";
 import Swal from "sweetalert2";
+import { Rate } from "antd";
+import { cancelCourse } from "./duck/CancelCourse/actions";
+import { Input } from "antd";
+
+const { Search } = Input;
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -78,23 +84,48 @@ export default function Profile() {
             <div className="col-md-7">
               <div className="card-body">
                 <h4 className="card-title">{course.tenKhoaHoc}</h4>
-                <p className="card-text">{course.moTa}</p>
-                <p className="card-text">Lượt xem: {course.luotXem}</p>
                 <p className="card-text">
-                  <span className="text-muted">
-                    Đánh giá: {course.danhGia} sao
-                  </span>
+                  {course.moTa.length > 200
+                    ? `${course.moTa.slice(0, 200)}...`
+                    : course.moTa}
                 </p>
+                <Rate allowHalf value={course.danhGia / 2} />
               </div>
             </div>
             <div className="col-md-2 d-flex align-items-center">
-              <button className="btn btn-danger">Hủy đăng ký</button>
+              <button
+                className="btn btn-danger"
+                onClick={() => {
+                  Swal.fire({
+                    icon: "question",
+                    title: "Xác nhận",
+                    text: "Bạn có chắc chắn muốn hủy đăng ký",
+                    showCancelButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: "Đồng ý",
+                    cancelButtonText: "Hủy bỏ",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      dispatch(
+                        cancelCourse({
+                          maKhoaHoc: course.maKhoaHoc,
+                          taiKhoan: data.taiKhoan,
+                        }),
+                      );
+                    }
+                  });
+                }}
+              >
+                Hủy đăng ký
+              </button>
             </div>
           </div>
         </div>
       );
     });
   };
+
+  const onSearch = (value, _e, info) => console.log(info?.source, value);
 
   return (
     <div className="container py-4">
@@ -376,7 +407,7 @@ export default function Profile() {
                           aria-controls="ex1-tabs-1"
                           aria-selected="true"
                         >
-                          Kỹ năng của bạn
+                          Khóa học
                         </a>
                       </li>
                       <li className="nav-item" role="presentation">
@@ -389,7 +420,7 @@ export default function Profile() {
                           aria-controls="ex1-tabs-2"
                           aria-selected="false"
                         >
-                          Khóa học
+                          Kỹ năng
                         </a>
                       </li>
                     </ul>
@@ -399,6 +430,26 @@ export default function Profile() {
                         id="ex1-tabs-1"
                         role="tabpanel"
                         aria-labelledby="ex1-tab-1"
+                      >
+                        <div
+                          style={{ textAlign: "right", paddingBottom: "15px" }}
+                        >
+                          <Search
+                            placeholder="Tìm khóa học"
+                            onSearch={onSearch}
+                            className="text-right"
+                            style={{
+                              width: 200,
+                            }}
+                          />
+                        </div>
+                        {renderCourses()}
+                      </div>
+                      <div
+                        className="tab-pane fade"
+                        id="ex1-tabs-2"
+                        role="tabpanel"
+                        aria-labelledby="ex1-tab-2"
                       >
                         <p>HTML</p>
                         <div className="progress mb-3" style={{ height: 5 }}>
@@ -455,45 +506,6 @@ export default function Profile() {
                             aria-valuemax={100}
                           />
                         </div>
-                      </div>
-                      <div
-                        className="tab-pane fade"
-                        id="ex1-tabs-2"
-                        role="tabpanel"
-                        aria-labelledby="ex1-tab-2"
-                      >
-                        {renderCourses()}
-                        {/* <div className="card mb-3" style={{ border: "none" }}>
-                          <div className="row g-0">
-                            <div className="col-md-3">
-                              <img
-                                src="..."
-                                className="img-fluid rounded-start"
-                                alt="..."
-                              />
-                            </div>
-                            <div className="col-md-7">
-                              <div className="card-body">
-                                <h5 className="card-title">Card title</h5>
-                                <p className="card-text">
-                                  This is a wider card with supporting text
-                                  below as a natural lead-in to additional
-                                  content. This content is a little bit longer.
-                                </p>
-                                <p className="card-text">
-                                  <span className="text-muted">
-                                    Last updated 3 mins ago
-                                  </span>
-                                </p>
-                              </div>
-                            </div>
-                            <div className="col-md-2 d-flex align-items-center">
-                              <button className="btn btn-danger">
-                                Hủy đăng ký
-                              </button>
-                            </div>
-                          </div>
-                        </div> */}
                       </div>
                     </div>
                   </div>

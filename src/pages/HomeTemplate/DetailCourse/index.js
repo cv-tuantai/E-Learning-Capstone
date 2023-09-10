@@ -1,18 +1,22 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailCourse } from "./duck/actions";
-import { useParams } from "react-router-dom";
+import { getDetailCourse } from "./duck/GetDetail/actions";
+import { registerCourse } from "./duck/RegisterCourse/actions";
+import { useNavigate, useParams } from "react-router-dom";
 import img1 from "../../../assets/images/hero-flex.png";
 import img2 from "../../../assets/images/olstudy.png";
 import img3 from "../../../assets/images/education-hero.png";
+import imgError from "../../../assets/images/Nodejs.png";
 
 export default function DetailCourse() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { data } = useSelector((state) => state.detailCourseReducer);
   const { maKhoaHoc } = useParams();
 
   useEffect(() => {
     dispatch(getDetailCourse(maKhoaHoc));
+    window.scrollTo(0, 0);
   }, []);
 
   return (
@@ -27,8 +31,7 @@ export default function DetailCourse() {
                 alt="..."
                 onError={(e) => {
                   e.target.onerror = null;
-                  e.target.src =
-                    "https://canhme.com/wp-content/uploads/2018/09/Nodejs.png";
+                  e.target.src = { imgError };
                 }}
               />
               <h3>{data?.tenKhoaHoc}</h3>
@@ -56,7 +59,22 @@ export default function DetailCourse() {
                 <p>{data?.soLuongHocVien}</p>
               </div>
               <div className="text-center">
-                <button className="btn btn-success" style={{ width: "200px" }}>
+                <button
+                  className="btn btn-success"
+                  style={{ width: "200px" }}
+                  onClick={() => {
+                    if (localStorage.getItem("user")) {
+                      const regInfo = {
+                        taiKhoan: JSON.parse(localStorage.getItem("user"))
+                          .taiKhoan,
+                        maKhoaHoc,
+                      };
+                      dispatch(registerCourse(regInfo));
+                    } else {
+                      navigate("/user/login", { replace: true });
+                    }
+                  }}
+                >
                   Đăng ký
                 </button>
               </div>

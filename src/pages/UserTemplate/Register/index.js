@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import imgReg from "../../../assets/images/login.webp";
 import "@fortawesome/fontawesome-free/css/all.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
@@ -11,6 +11,10 @@ export default function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
+
+  if (localStorage.getItem("user")) {
+    return <Navigate replace to="/user/profile" />;
+  }
 
   const handleCheck = () => {
     setIsChecked(!isChecked);

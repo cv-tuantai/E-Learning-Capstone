@@ -17,7 +17,7 @@ export default function Login() {
   });
 
   if (localStorage.getItem("user")) {
-    return <Navigate replace to="/" />;
+    return <Navigate replace to="/user/profile" />;
   }
 
   return (

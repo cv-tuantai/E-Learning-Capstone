@@ -78,7 +78,11 @@ export default function Header() {
           </button>
           <ul className="dropdown-menu">
             <li>
-              <Link className="dropdown-item" to="/user/profile">
+              <Link
+                className="dropdown-item"
+                style={{ fontSize: 15 }}
+                to="/user/profile"
+              >
                 Thông tin tài khoản
               </Link>
             </li>
@@ -88,6 +92,7 @@ export default function Header() {
             <li>
               <button
                 className="dropdown-item"
+                style={{ fontSize: 15 }}
                 onClick={() => dispatch(actLogout(navigate))}
               >
                 Đăng xuất

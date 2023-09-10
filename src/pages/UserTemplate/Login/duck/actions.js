@@ -2,7 +2,7 @@ import * as actionTypes from "./constants";
 import api from "../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 
-const TIME_EXPIRE = 60 * 1000 * 60;
+const TIME_EXPIRE = 60 * 60 * 1000;
 
 export const actLogin = (data, navigate) => {
   return (dispatch) => {

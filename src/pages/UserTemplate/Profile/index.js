@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { actTryLogout } from "../Login/duck/actions";
@@ -18,6 +18,8 @@ export default function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useSelector((state) => state.userReducer);
+
+  const [keyword, setKeyword] = useState("");
 
   useEffect(() => {
     dispatch(actTryLogout(navigate));
@@ -65,7 +67,11 @@ export default function Profile() {
   });
 
   const renderCourses = () => {
-    return data?.chiTietKhoaHocGhiDanh.map((course, index) => {
+    const filteredCourse = data?.chiTietKhoaHocGhiDanh.filter((course) =>
+      course.tenKhoaHoc.toLowerCase().includes(keyword?.toLowerCase()),
+    );
+
+    return filteredCourse?.map((course, index) => {
       return (
         <div key={index} className="card mb-3" style={{ border: "none" }}>
           <div className="row g-0">
@@ -125,7 +131,9 @@ export default function Profile() {
     });
   };
 
-  const onSearch = (value, _e, info) => console.log(info?.source, value);
+  const handleSearchCourse = (e) => {
+    setKeyword(e.target.value);
+  };
 
   return (
     <div className="container py-4">
@@ -436,7 +444,7 @@ export default function Profile() {
                         >
                           <Search
                             placeholder="Tìm khóa học"
-                            onSearch={onSearch}
+                            onChange={handleSearchCourse}
                             className="text-right"
                             style={{
                               width: 200,

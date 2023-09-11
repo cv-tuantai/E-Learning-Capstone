@@ -71,6 +71,7 @@ export default function DetailCourse() {
                       };
                       dispatch(registerCourse(regInfo));
                     } else {
+                      alert("Bạn cần phải đăng nhập trước.");
                       navigate("/user/login", { replace: true });
                     }
                   }}

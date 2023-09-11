@@ -77,6 +77,22 @@ export default function Header() {
             {user.taiKhoan}
           </button>
           <ul className="dropdown-menu">
+            {user.maLoaiNguoiDung === "GV" && (
+              <>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    style={{ fontSize: 15 }}
+                    to="/admin"
+                  >
+                    Vào trang quản trị
+                  </Link>
+                </li>
+                <li>
+                  <hr className="dropdown-divider" />
+                </li>
+              </>
+            )}
             <li>
               <Link
                 className="dropdown-item"

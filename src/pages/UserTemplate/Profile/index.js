@@ -157,11 +157,20 @@ export default function Profile() {
                         : "Giảng viên"}
                     </p>
                   </div>
-                  <Link to="/">
-                    <button className="btn btn-warning mt-3">
-                      Quay lại trang chủ
-                    </button>
-                  </Link>
+                  <div className="d-flex">
+                    <Link to="/">
+                      <button className="btn btn-warning mt-3">
+                        Quay lại trang chủ
+                      </button>
+                    </Link>
+                    {data?.maLoaiNguoiDung === "GV" && (
+                      <Link to="/admin">
+                        <button className="btn btn-info mt-3 ms-1">
+                          Vào trang quản trị
+                        </button>
+                      </Link>
+                    )}
+                  </div>
                 </div>
                 <hr className="my-4" />
                 <ul className="list-group list-group-flush">

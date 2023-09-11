@@ -54,6 +54,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: "admin",
+    element: lazy(() => import("../pages/AdminTemplate")),
+    nested: [],
+  },
 ];
 
 const renderRoutes = () => {

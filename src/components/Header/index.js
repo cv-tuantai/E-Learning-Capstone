@@ -83,7 +83,7 @@ export default function Header() {
                   <Link
                     className="dropdown-item"
                     style={{ fontSize: 15 }}
-                    to="/admin"
+                    to="/admin/courses"
                   >
                     Vào trang quản trị
                   </Link>

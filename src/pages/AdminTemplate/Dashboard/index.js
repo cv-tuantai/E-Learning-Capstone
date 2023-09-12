@@ -5,12 +5,15 @@ import {
   PlayCircleOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Input } from "antd";
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { actLogout } from "../../UserTemplate/Login/duck/actions";
 import logoCyber from "../../../assets/images/logoCyber.png";
+import { fetchListCourses } from "../../HomeTemplate/Home/Courses/duck/actions";
+import { getListUsers } from "../Users/duck/ListUsers/actions";
 
 const { Header, Content, Footer, Sider } = Layout;
+const { Search } = Input;
 
 function getItem(label, key, icon, children) {
   return {
@@ -23,7 +26,7 @@ function getItem(label, key, icon, children) {
 
 const items = [
   getItem(
-    <Link to="/admin">Quản lý khóa học</Link>,
+    <Link to="/admin/courses">Quản lý khóa học</Link>,
     "1",
     <PlayCircleOutlined />,
   ),
@@ -51,6 +54,16 @@ const Dashboard = () => {
     return <Navigate replace to="/" />;
   }
 
+  const pathname = window.location.pathname;
+
+  const onSearch = (value) => {
+    if (pathname === "/admin/courses") {
+      dispatch(fetchListCourses(value));
+    } else if (pathname === "/admin/users") {
+      dispatch(getListUsers(value));
+    }
+  };
+
   return (
     <Layout
       style={{
@@ -72,7 +85,6 @@ const Dashboard = () => {
           </span>
         </Link>
         <Menu
-          //   style={{ paddingTop: 20 }}
           theme="dark"
           defaultSelectedKeys={["1"]}
           mode="inline"
@@ -80,8 +92,21 @@ const Dashboard = () => {
         />
       </Sider>
       <Layout>
-        <Header style={{ textAlign: "right" }}>
-          <div className="btn-group">
+        <Header
+          className="d-flex align-items-center"
+          style={{ backgroundColor: "gainsboro" }}
+        >
+          <Search
+            placeholder={`Nhập tên ${
+              pathname === "/admin/courses" ? "khóa học" : "người dùng"
+            } để tìm kiếm`}
+            allowClear
+            onSearch={onSearch}
+            style={{
+              width: "400px",
+            }}
+          />
+          <div className="btn-group ms-auto">
             <button
               type="button"
               className="btn btn-success dropdown-toggle"

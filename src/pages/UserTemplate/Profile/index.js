@@ -164,7 +164,7 @@ export default function Profile() {
                       </button>
                     </Link>
                     {data?.maLoaiNguoiDung === "GV" && (
-                      <Link to="/admin">
+                      <Link to="/admin/courses">
                         <button className="btn btn-info mt-3 ms-1">
                           Vào trang quản trị
                         </button>

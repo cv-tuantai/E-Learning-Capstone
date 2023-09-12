@@ -9,6 +9,7 @@ import registerReducer from "../pages/UserTemplate/Register/duck/reducer";
 import userReducer from "../pages/UserTemplate/Profile/duck/UserDetail/reducer";
 import updateUserReducer from "../pages/UserTemplate/Profile/duck/UpdateUser/reducer";
 import cancelCourseReducer from "../pages/UserTemplate/Profile/duck/CancelCourse/reducer";
+import listUserReducer from "../pages/AdminTemplate/Users/duck/ListUsers/reducer";
 
 const rootReducer = combineReducers({
   listCoursesReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   updateUserReducer,
   registerCourseReducer,
   cancelCourseReducer,
+  listUserReducer,
 });
 
 export default rootReducer;

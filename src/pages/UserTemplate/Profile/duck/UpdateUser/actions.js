@@ -10,7 +10,6 @@ export const updateUser = (data) => {
     api
       .put("QuanLyNguoiDung/CapNhatThongTinNguoiDung", data)
       .then((result) => {
-        console.log(result);
         dispatch(updateUserSuccess(result.data));
         dispatch(getUserDetail());
         Swal.fire({
@@ -23,7 +22,7 @@ export const updateUser = (data) => {
         dispatch(updateUserFail(error));
         Swal.fire({
           icon: "error",
-          title: "Thất bại",
+          title: error.response?.data,
           text: "Cập nhật thông tin người dùng thât bại",
         });
       });

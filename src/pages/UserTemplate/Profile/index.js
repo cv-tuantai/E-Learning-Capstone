@@ -152,9 +152,7 @@ export default function Profile() {
                   <div className="mt-3">
                     <h4>{data?.hoTen}</h4>
                     <p className="text-secondary mb-1">
-                      {data?.maLoaiNguoiDung === "HV"
-                        ? "Học viên"
-                        : "Giảng viên"}
+                      {data?.maLoaiNguoiDung === "HV" ? "Học viên" : "Giáo vụ"}
                     </p>
                   </div>
                   <div className="d-flex">
@@ -310,23 +308,6 @@ export default function Profile() {
                     <Form>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Họ tên</h6>
-                        </div>
-                        <div className="col-sm-9 text-secondary">
-                          <Field
-                            type="text"
-                            name="hoTen"
-                            className="form-control"
-                          />
-                          <ErrorMessage
-                            name="hoTen"
-                            component="div"
-                            style={{ color: "red" }}
-                          />
-                        </div>
-                      </div>
-                      <div className="row mb-3">
-                        <div className="col-sm-3">
                           <h6 className="mb-0">Tài khoản</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
@@ -334,6 +315,7 @@ export default function Profile() {
                             type="text"
                             name="taiKhoan"
                             className="form-control"
+                            disabled
                           />
                           <ErrorMessage
                             name="taiKhoan"
@@ -354,6 +336,23 @@ export default function Profile() {
                           />
                           <ErrorMessage
                             name="matKhau"
+                            component="div"
+                            style={{ color: "red" }}
+                          />
+                        </div>
+                      </div>
+                      <div className="row mb-3">
+                        <div className="col-sm-3">
+                          <h6 className="mb-0">Họ tên</h6>
+                        </div>
+                        <div className="col-sm-9 text-secondary">
+                          <Field
+                            type="text"
+                            name="hoTen"
+                            className="form-control"
+                          />
+                          <ErrorMessage
+                            name="hoTen"
                             component="div"
                             style={{ color: "red" }}
                           />

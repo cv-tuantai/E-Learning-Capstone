@@ -9,7 +9,6 @@ export const registerCourse = (data) => {
     api
       .post("QuanLyKhoaHoc/DangKyKhoaHoc", data)
       .then((result) => {
-        console.log(result);
         dispatch(actRegisterCourseSuccess(result.data));
         Swal.fire({
           icon: "success",

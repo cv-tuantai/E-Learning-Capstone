@@ -55,6 +55,8 @@ const Dashboard = () => {
   }
 
   const pathname = window.location.pathname;
+  const isVisible =
+    pathname === "/admin/courses" || pathname === "/admin/users";
 
   const onSearch = (value) => {
     if (pathname === "/admin/courses") {
@@ -96,16 +98,18 @@ const Dashboard = () => {
           className="d-flex align-items-center"
           style={{ backgroundColor: "gainsboro" }}
         >
-          <Search
-            placeholder={`Nhập tên ${
-              pathname === "/admin/courses" ? "khóa học" : "người dùng"
-            } để tìm kiếm`}
-            allowClear
-            onSearch={onSearch}
-            style={{
-              width: "400px",
-            }}
-          />
+          {isVisible && (
+            <Search
+              placeholder={`Nhập tên ${
+                pathname === "/admin/courses" ? "khóa học" : "người dùng"
+              } để tìm kiếm`}
+              allowClear
+              onSearch={onSearch}
+              style={{
+                width: "400px",
+              }}
+            />
+          )}
           <div className="btn-group ms-auto">
             <button
               type="button"

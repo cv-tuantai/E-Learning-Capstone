@@ -12,7 +12,6 @@ export const getListUsers = (keyword = "") => {
     api
       .get(url)
       .then((result) => {
-        console.log(result);
         dispatch(getListUsersSuccess(result.data));
       })
       .catch((error) => dispatch(getListUsersFail(error)));

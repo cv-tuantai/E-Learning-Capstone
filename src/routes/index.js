@@ -66,6 +66,10 @@ const routes = [
         path: "users",
         element: lazy(() => import("../pages/AdminTemplate/Users")),
       },
+      {
+        path: "add-user",
+        element: lazy(() => import("../pages/AdminTemplate/Users/Add-user")),
+      },
     ],
   },
 ];

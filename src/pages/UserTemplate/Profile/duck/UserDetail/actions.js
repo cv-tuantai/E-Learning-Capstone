@@ -8,7 +8,6 @@ export const getUserDetail = () => {
     api
       .post("QuanLyNguoiDung/ThongTinTaiKhoan")
       .then((result) => {
-        console.log(result);
         dispatch(getUserDetailSuccess(result.data));
       })
       .catch((error) => dispatch(getUserDetailFail(error)));

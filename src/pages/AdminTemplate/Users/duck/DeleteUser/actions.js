@@ -22,7 +22,7 @@ export const deleteUser = (user) => {
         Swal.fire({
           icon: "error",
           title: "Thất bại",
-          text: "Xóa người dùng thất bại, hãy kiểm tra lại",
+          text: error.response?.data,
         });
       });
   };

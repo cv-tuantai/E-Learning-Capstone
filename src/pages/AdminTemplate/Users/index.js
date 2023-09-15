@@ -10,11 +10,12 @@ import {
 } from "@ant-design/icons";
 import { getListUsers } from "./duck/ListUsers/actions";
 import { deleteUser } from "./duck/DeleteUser/actions";
+import { updateUser } from "../../UserTemplate/Profile/duck/UpdateUser/actions";
+import { addUser } from "./duck/AddUser/action";
 import Swal from "sweetalert2";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "@fortawesome/fontawesome-free/css/all.css";
 import * as yup from "yup";
-import { updateUser } from "../../UserTemplate/Profile/duck/UpdateUser/actions";
 
 export default function Users() {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Users() {
     dispatch(getListUsers());
   }, []);
 
-  const editUserSchema = yup.object().shape({
+  const userSchema = yup.object().shape({
     taiKhoan: yup
       .string()
       .min(2, "* Tài khoản quá ngắn")
@@ -92,7 +93,6 @@ export default function Users() {
     },
     {
       title: "Tác vụ",
-
       render: (text, user) => {
         return (
           <>
@@ -106,7 +106,6 @@ export default function Users() {
             >
               <EditOutlined style={{ color: "blue" }} />
             </span>
-            {/* Modal */}
             <div
               className="modal fade"
               id="staticBackdrop"
@@ -120,14 +119,13 @@ export default function Users() {
                 <div className="modal-content">
                   <div className="modal-header">
                     <h5 className="modal-title" id="staticBackdropLabel">
-                      Cập nhật người dùng
+                      {dataUser ? "Cập nhật người dùng" : "Thêm người dùng"}
                     </h5>
                     <button
                       type="button"
                       className="btn-close"
                       data-bs-dismiss="modal"
                       aria-label="Close"
-                      onClick={() => dispatch(getListUsers())}
                     />
                   </div>
                   <div className="modal-body">
@@ -140,21 +138,23 @@ export default function Users() {
                         soDT: dataUser?.soDt || "",
                         maNhom: "GP09",
                         email: dataUser?.email || "",
-                        maLoaiNguoiDung: dataUser?.maLoaiNguoiDung || "",
+                        maLoaiNguoiDung: dataUser?.maLoaiNguoiDung || "HV",
                       }}
-                      validationSchema={editUserSchema}
+                      validationSchema={userSchema}
                       onSubmit={(values) => {
                         Swal.fire({
                           icon: "question",
                           title: "Xác nhận",
-                          text: "Bạn chắc chắn cập nhật thông tin?",
+                          text: "Bạn chắc chắn thực hiện?",
                           showConfirmButton: true,
                           showCancelButton: true,
                           confirmButtonText: "Đồng ý",
                           cancelButtonText: "Hủy bỏ",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            dispatch(updateUser(values));
+                            dataUser
+                              ? dispatch(updateUser(values))
+                              : dispatch(addUser(values));
                           }
                         });
                       }}
@@ -171,7 +171,7 @@ export default function Users() {
                                 className="form-control"
                                 placeholder="Nhập tài khoản của bạn"
                                 style={{ fontSize: 15 }}
-                                disabled
+                                disabled={dataUser}
                               />
                               <ErrorMessage
                                 name="taiKhoan"
@@ -284,7 +284,6 @@ export default function Users() {
                 </div>
               </div>
             </div>
-
             <span
               key={2}
               style={{ cursor: "pointer", fontSize: 25, margin: "0 10px" }}
@@ -323,11 +322,16 @@ export default function Users() {
   return (
     <div>
       <h2 className="text-center">Quản lý người dùng</h2>
-      <Link to="/admin/add-user">
-        <Button type="primary" danger className="my-3">
-          Thêm người dùng
-        </Button>
-      </Link>
+      <Button
+        type="primary"
+        danger
+        className="my-3"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        onClick={() => handleDataUser(null)}
+      >
+        Thêm người dùng
+      </Button>
       <Table
         columns={columns}
         dataSource={data}

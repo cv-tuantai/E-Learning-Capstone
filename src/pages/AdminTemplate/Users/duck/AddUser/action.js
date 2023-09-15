@@ -1,28 +1,29 @@
 import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
+import { getListUsers } from "../ListUsers/actions";
 
-export const addUser = (data, navigate) => {
+export const addUser = (data) => {
   return (dispatch) => {
     dispatch(addUserRequest());
 
     api
       .post("QuanLyNguoiDung/ThemNguoiDung", data)
       .then((result) => {
-        console.log(result);
         dispatch(addUserSuccess(result.data));
+        dispatch(getListUsers());
         Swal.fire({
           icon: "success",
           title: "Thành công",
           text: "Thêm người dùng thành công",
-        }).then(() => navigate("/admin/users", { replace: true }));
+        }).then(() => window.location.reload());
       })
       .catch((error) => {
         dispatch(addUserFail(error));
         Swal.fire({
           icon: "error",
           title: "Thất bại",
-          text: "Thông tin người dùng đã tồn tại",
+          text: error.response?.data,
         });
       });
   };

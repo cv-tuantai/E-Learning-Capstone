@@ -21,7 +21,7 @@ export const registerCourse = (data) => {
         Swal.fire({
           icon: "error",
           title: "Thất bại",
-          text: "Có lỗi xảy ra, bạn hãy thử lại sau",
+          text: error.response?.data,
         });
       });
   };

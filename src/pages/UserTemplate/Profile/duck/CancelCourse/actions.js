@@ -16,7 +16,7 @@ export const cancelCourse = (data) => {
       })
       .catch((error) => {
         dispatch(actCancelCourseFail(error));
-        Swal.fire("Thất bại", "Có lỗi xảy ra, bạn hãy thử lại sau", "error");
+        Swal.fire("Thất bại", error.response?.data, "error");
       });
   };
 };

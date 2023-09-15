@@ -32,7 +32,7 @@ export const actLogin = (data, navigate) => {
         Swal.fire({
           icon: "error",
           title: "Đăng nhập thất bại!",
-          text: error.response.data,
+          text: error.response?.data,
           showConfirmButton: false,
           timer: 1500,
         });

@@ -24,7 +24,7 @@ export const actRegister = (data, navigate) => {
         Swal.fire({
           icon: "error",
           title: "Đăng ký thất bại!",
-          text: error.response.data,
+          text: error.response?.data,
           showConfirmButton: false,
           timer: 1500,
         });

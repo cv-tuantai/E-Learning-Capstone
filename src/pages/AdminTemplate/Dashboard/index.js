@@ -93,7 +93,7 @@ const Dashboard = () => {
           items={items}
         />
       </Sider>
-      <Layout>
+      <Layout style={{ width: "auto" }}>
         <Header
           className="d-flex align-items-center"
           style={{ backgroundColor: "gainsboro" }}

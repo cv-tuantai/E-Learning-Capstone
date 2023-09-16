@@ -96,6 +96,7 @@ export default function Users() {
       render: (text, user) => {
         return (
           <>
+            {/* edit user */}
             <span
               type="button"
               key={1}
@@ -106,6 +107,7 @@ export default function Users() {
             >
               <EditOutlined style={{ color: "blue" }} />
             </span>
+            {/* modal */}
             <div
               className="modal fade"
               id="staticBackdrop"
@@ -264,7 +266,6 @@ export default function Users() {
                                 as="select"
                                 name="maLoaiNguoiDung"
                                 className="form-control"
-                                placeholder="Nhập email của bạn"
                                 style={{ fontSize: 15 }}
                               >
                                 <option value="HV">Học viên</option>
@@ -274,7 +275,7 @@ export default function Users() {
                           </div>
                           <div className="modal-footer">
                             <button type="submit" className="btn btn-success">
-                              Cập nhật
+                              {dataUser ? "Cập nhật" : "Thêm"}
                             </button>
                           </div>
                         </Form>
@@ -284,6 +285,7 @@ export default function Users() {
                 </div>
               </div>
             </div>
+            {/* delete user */}
             <span
               key={2}
               style={{ cursor: "pointer", fontSize: 25, margin: "0 10px" }}
@@ -305,6 +307,7 @@ export default function Users() {
             >
               <DeleteOutlined style={{ color: "red" }} />{" "}
             </span>
+
             <Link
               to={`/admin/showtime/${user.maPhim}`}
               key={3}

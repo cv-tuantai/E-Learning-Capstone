@@ -1,7 +1,6 @@
 import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
-import { getListUsers } from "../ListUsers/actions";
 
 export const addUser = (data) => {
   return (dispatch) => {
@@ -11,12 +10,11 @@ export const addUser = (data) => {
       .post("QuanLyNguoiDung/ThemNguoiDung", data)
       .then((result) => {
         dispatch(addUserSuccess(result.data));
-        dispatch(getListUsers());
         Swal.fire({
           icon: "success",
           title: "Thành công",
           text: "Thêm người dùng thành công",
-        }).then(() => window.location.reload());
+        });
       })
       .catch((error) => {
         dispatch(addUserFail(error));

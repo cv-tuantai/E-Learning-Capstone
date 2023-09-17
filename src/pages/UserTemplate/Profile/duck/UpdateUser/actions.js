@@ -1,6 +1,7 @@
 import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
+import { getUserDetail } from "../UserDetail/actions";
 
 export const updateUser = (data) => {
   return (dispatch) => {
@@ -10,11 +11,12 @@ export const updateUser = (data) => {
       .put("QuanLyNguoiDung/CapNhatThongTinNguoiDung", data)
       .then((result) => {
         dispatch(updateUserSuccess(result.data));
+        dispatch(getUserDetail());
         Swal.fire({
           icon: "success",
           title: "Thành công",
           text: "Cập nhật thông tin người dùng thành công",
-        }).then(() => window.location.reload());
+        });
       })
       .catch((error) => {
         dispatch(updateUserFail(error));

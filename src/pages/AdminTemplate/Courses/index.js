@@ -15,17 +15,25 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import Swal from "sweetalert2";
 import * as yup from "yup";
 import moment from "moment";
+import { addCourse } from "./duck/AddCourse/actions";
+import { deleteCourse } from "./duck/DeleteCourse/action";
+import { updateCourse, updateCourseNoImage } from "./duck/UpdateCourse/actions";
 
 export default function Courses() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.listCoursesReducer);
   const courseCate = useSelector((state) => state.courseCategoryReducer.data);
   const [dataCourse, setDataCourse] = useState(null);
+  const [thumb, setThumb] = useState("");
 
   useEffect(() => {
     dispatch(fetchListCourses());
     dispatch(fetchCoursesCate());
   }, []);
+
+  useEffect(() => {
+    setThumb(dataCourse?.hinhAnh);
+  }, [dataCourse]);
 
   const handleDataCourse = (data) => {
     setDataCourse(data);
@@ -118,10 +126,13 @@ export default function Courses() {
               data-bs-toggle="modal"
               data-bs-target="#staticBackdrop"
               style={{ fontSize: 25 }}
-              onClick={() => handleDataCourse(course)}
+              onClick={() => {
+                handleDataCourse(course);
+              }}
             >
               <EditOutlined style={{ color: "blue" }} />
             </span>
+
             {/* modal */}
             <div
               className="modal fade"
@@ -143,6 +154,7 @@ export default function Courses() {
                       className="btn-close"
                       data-bs-dismiss="modal"
                       aria-label="Close"
+                      onClick={() => dispatch(fetchListCourses())}
                     />
                   </div>
                   <div className="modal-body">
@@ -157,32 +169,50 @@ export default function Courses() {
                         ngayTao:
                           dataCourse?.ngayTao ||
                           moment(Date.now()).format("DD/MM/YYYY"),
-                        danhGia: dataCourse?.danhGia || "",
-                        luotXem: dataCourse?.luotXem || "",
+                        danhGia: 0,
+                        luotXem: dataCourse?.luotXem || 0,
                         taiKhoanNguoiTao:
                           dataCourse?.nguoiTao.taiKhoan || creator.taiKhoan,
                         moTa: dataCourse?.moTa || "",
                         hinhAnh: dataCourse?.hinhAnh || null,
                         maNhom: "GP09",
                       }}
-                      // validationSchema={courseSchema}
+                      validationSchema={courseSchema}
                       onSubmit={(values) => {
-                        // Swal.fire({
-                        //   icon: "question",
-                        //   title: "Xác nhận",
-                        //   text: "Bạn chắc chắn thực hiện?",
-                        //   showConfirmButton: true,
-                        //   showCancelButton: true,
-                        //   confirmButtonText: "Đồng ý",
-                        //   cancelButtonText: "Hủy bỏ",
-                        // }).then((result) => {
-                        //   if (result.isConfirmed) {
-                        //     dataCourse;
-                        //     ? dispatch(updateUser(values))
-                        //     : dispatch(addUser(values));
-                        //   }
-                        // });
-                        console.log(values);
+                        Swal.fire({
+                          icon: "question",
+                          title: "Xác nhận",
+                          text: "Bạn chắc chắn thực hiện?",
+                          showConfirmButton: true,
+                          showCancelButton: true,
+                          confirmButtonText: "Đồng ý",
+                          cancelButtonText: "Hủy bỏ",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            console.log(values);
+                            //Tạo formData
+                            let formData = new FormData();
+                            if (values.hinhAnh?.name) {
+                              for (let key in values) {
+                                if (key !== "hinhAnh") {
+                                  formData.append(key, values[key]);
+                                } else {
+                                  formData.append(
+                                    "hinhAnh",
+                                    values.hinhAnh,
+                                    values.hinhAnh.name,
+                                  );
+                                }
+                              }
+                            }
+
+                            dataCourse
+                              ? values.hinhAnh?.name
+                                ? dispatch(updateCourse(formData))
+                                : dispatch(updateCourseNoImage(values))
+                              : dispatch(addCourse(formData));
+                          }
+                        });
                       }}
                     >
                       {({ setFieldValue }) => (
@@ -248,8 +278,6 @@ export default function Courses() {
                                     name="maDanhMucKhoaHoc"
                                     style={{ fontSize: 15 }}
                                   >
-                                    {/* <option value="">Chọn danh mục</option>
-                                    {renderCourseCate()} */}
                                     <option
                                       value={
                                         dataCourse
@@ -386,12 +414,18 @@ export default function Courses() {
                                   <input
                                     type="file"
                                     name="hinhAnh"
-                                    onChange={(event) =>
-                                      setFieldValue(
-                                        "image",
-                                        event.currentTarget.files[0],
-                                      )
-                                    }
+                                    accept="image/png, image/jpeg"
+                                    onChange={(e) => {
+                                      let file = e.currentTarget.files[0];
+                                      let reader = new FileReader();
+                                      if (file) {
+                                        reader.readAsDataURL(file);
+                                        reader.onload = (e) => {
+                                          setThumb(e.target.result);
+                                        };
+                                        setFieldValue("hinhAnh", file);
+                                      }
+                                    }}
                                   />
                                 </div>
                               </div>
@@ -399,23 +433,32 @@ export default function Courses() {
 
                             <div className="col-12">
                               <div className="row">
-                                <div className="col-3">
+                                <div className="col-4">
                                   <img
                                     className="img-fluid rounded"
-                                    src="../logo512.png"
-                                    width={200}
-                                    height={200}
-                                    alt="..."
+                                    src={thumb}
+                                    style={{
+                                      width: 250,
+                                      height: 150,
+                                      objectFit: "cover",
+                                      objectPosition: "center",
+                                    }}
+                                    alt="Hình ảnh"
                                   />
                                 </div>
 
-                                <div className="col-9">
+                                <div className="col-8">
                                   <Field
                                     as="textarea"
                                     name="moTa"
                                     className="form-control"
                                     placeholder="Nhập mô tả"
                                     style={{ height: 150 }}
+                                  />
+                                  <ErrorMessage
+                                    name="moTa"
+                                    component="div"
+                                    style={{ color: "red" }}
                                   />
                                 </div>
                               </div>
@@ -434,6 +477,7 @@ export default function Courses() {
                 </div>
               </div>
             </div>
+
             {/* delete course */}
             <span
               key={2}
@@ -449,7 +493,7 @@ export default function Courses() {
                   confirmButtonText: "Xác nhận",
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    // dispatch(deleteUser(user.taiKhoan));
+                    dispatch(deleteCourse(course.maKhoaHoc));
                   }
                 });
               }}
@@ -480,7 +524,9 @@ export default function Courses() {
         className="my-3"
         data-bs-toggle="modal"
         data-bs-target="#staticBackdrop"
-        onClick={() => handleDataCourse(null)}
+        onClick={() => {
+          handleDataCourse(null);
+        }}
       >
         Thêm khóa học
       </Button>

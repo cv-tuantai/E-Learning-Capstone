@@ -128,6 +128,7 @@ export default function Users() {
                       className="btn-close"
                       data-bs-dismiss="modal"
                       aria-label="Close"
+                      onClick={() => dispatch(getListUsers())}
                     />
                   </div>
                   <div className="modal-body">

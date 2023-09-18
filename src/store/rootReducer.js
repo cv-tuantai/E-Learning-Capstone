@@ -15,6 +15,9 @@ import deleteUserReducer from "../pages/AdminTemplate/Users/duck/DeleteUser/redu
 import addCourseReducer from "../pages/AdminTemplate/Courses/duck/AddCourse/reducer";
 import deleteCourseReducer from "../pages/AdminTemplate/Courses/duck/DeleteCourse/reducer";
 import updateCourseReducer from "../pages/AdminTemplate/Courses/duck/UpdateCourse/reducer";
+import courseWaitConfirmReducer from "../pages/AdminTemplate/Users/RegModal/duck/CourseWaitConfirm/reducer";
+import courseUnRegReducer from "../pages/AdminTemplate/Users/RegModal/duck/CoursesUnReg/reducer";
+import courseConfirmReducer from "../pages/AdminTemplate/Users/RegModal/duck/CourseConfirmed/reducer";
 
 const rootReducer = combineReducers({
   listCoursesReducer,
@@ -33,6 +36,9 @@ const rootReducer = combineReducers({
   addCourseReducer,
   deleteCourseReducer,
   updateCourseReducer,
+  courseUnRegReducer,
+  courseWaitConfirmReducer,
+  courseConfirmReducer,
 });
 
 export default rootReducer;

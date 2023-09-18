@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../components/Loader";
-import { Link } from "react-router-dom";
 import {
   CalendarOutlined,
   DeleteOutlined,
@@ -16,6 +15,10 @@ import Swal from "sweetalert2";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import "@fortawesome/fontawesome-free/css/all.css";
 import * as yup from "yup";
+import RegModal from "./RegModal";
+import { getCourseWaitConfirm } from "./RegModal/duck/CourseWaitConfirm/actions";
+import { getCourseUnReg } from "./RegModal/duck/CoursesUnReg/actions";
+import { getCourseConfirm } from "./RegModal/duck/CourseConfirmed/actions";
 
 export default function Users() {
   const dispatch = useDispatch();
@@ -309,13 +312,20 @@ export default function Users() {
               <DeleteOutlined style={{ color: "red" }} />{" "}
             </span>
 
-            <Link
-              to={`/admin/showtime/${user.maPhim}`}
+            <span
+              type="button"
               key={3}
+              data-bs-toggle="modal"
+              data-bs-target="#regModal"
               style={{ fontSize: 25 }}
+              onClick={() => {
+                dispatch(getCourseUnReg(user.taiKhoan));
+                dispatch(getCourseWaitConfirm({ taiKhoan: user.taiKhoan }));
+                dispatch(getCourseConfirm({ taiKhoan: user.taiKhoan }));
+              }}
             >
-              <CalendarOutlined style={{ color: "green" }} />{" "}
-            </Link>
+              <CalendarOutlined style={{ color: "green" }} />
+            </span>
           </>
         );
       },
@@ -342,6 +352,7 @@ export default function Users() {
         rowKey={"taiKhoan"}
         pagination={{ pageSize: 8 }}
       />
+      <RegModal />
     </div>
   );
 }

@@ -189,7 +189,6 @@ export default function Courses() {
                           cancelButtonText: "Hủy bỏ",
                         }).then((result) => {
                           if (result.isConfirmed) {
-                            console.log(values);
                             //Tạo formData
                             let formData = new FormData();
                             if (values.hinhAnh?.name) {

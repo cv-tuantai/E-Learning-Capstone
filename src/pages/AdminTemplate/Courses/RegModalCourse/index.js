@@ -1,46 +1,44 @@
 import { Button, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { regCourseByAdmin } from "./duck/regCourseByAdmin/actions";
-import { delCourseByAdmin } from "./duck/delCourseByAdmin/actions";
 import Swal from "sweetalert2";
+import { regCourseByAdmin } from "../../Users/RegModal/duck/regCourseByAdmin/actions";
+import { delCourseByAdmin } from "../../Users/RegModal/duck/delCourseByAdmin/actions";
 
-export default function RegModal(props) {
+export default function RegModalCourse(props) {
   const dispatch = useDispatch();
-  const [searchCourse, setSearchCourse] = useState("");
-  const [courseCode, setCourseCode] = useState("");
+  const [searchUser, setSearchUser] = useState("");
+  const [userCode, setUserCode] = useState("");
 
-  const unRegisteredCourse = useSelector(
-    (state) => state.courseUnRegReducer.data,
+  const unregisteredUsers = useSelector(
+    (state) => state.usersUnregReducer.data,
   );
 
-  const courseWaitConfirm = useSelector(
-    (state) => state.courseWaitConfirmReducer.data,
+  const usersWaitConfirm = useSelector(
+    (state) => state.usersWaitConfirmReducer.data,
   );
 
-  const courseConfirmed = useSelector(
-    (state) => state.courseConfirmReducer.data,
-  );
+  const usersConfirmed = useSelector((state) => state.usersConfirmReducer.data);
 
-  const renderListUnregisteredCourse = (unRegisteredCourse) => {
-    if (!unRegisteredCourse) return null;
+  const renderListUnregisteredUsers = (unregisteredUsers) => {
+    if (!unregisteredUsers) return null;
 
-    const filteredItems = unRegisteredCourse.filter((item) => {
-      const searchTerm = searchCourse.trim().toLowerCase();
-      const courseName = item.tenKhoaHoc.trim().toLowerCase();
-      return searchTerm === "" || courseName.includes(searchTerm);
+    const filteredItems = unregisteredUsers.filter((user) => {
+      const searchTerm = searchUser.trim().toLowerCase();
+      const userName = user.hoTen.trim().toLowerCase();
+      return searchTerm === "" || userName.includes(searchTerm);
     });
 
-    return filteredItems.map((item, index) => (
+    return filteredItems.map((user, index) => (
       <li
         key={index}
         onClick={() => {
-          setCourseCode(item.maKhoaHoc);
-          setSearchCourse(item.tenKhoaHoc);
+          setUserCode(user.taiKhoan);
+          setSearchUser(user.hoTen);
         }}
         className="dropdown-item"
       >
-        {item.tenKhoaHoc}
+        {user.hoTen}
       </li>
     ));
   };
@@ -55,15 +53,21 @@ export default function RegModal(props) {
       width: "15%",
     },
     {
-      title: "Tên khóa học",
-      dataIndex: "tenKhoaHoc",
-      key: "tenKhoaHoc",
-      width: "55%",
+      title: "Tên tài khoản",
+      dataIndex: "taiKhoan",
+      key: "taiKhoan",
+      width: "25%",
+    },
+    {
+      title: "Học viên",
+      dataIndex: "hoTen",
+      key: "hoTen",
+      width: "30%",
     },
     {
       title: "Chờ xác nhận",
       width: "35%",
-      render: (text, course) => {
+      render: (text, user) => {
         return (
           <>
             <Button
@@ -83,8 +87,8 @@ export default function RegModal(props) {
                     dispatch(
                       regCourseByAdmin(
                         {
-                          taiKhoan: props.user.taiKhoan,
-                          maKhoaHoc: course.maKhoaHoc,
+                          taiKhoan: user.taiKhoan,
+                          maKhoaHoc: props.course.maKhoaHoc,
                         },
                         pathname,
                       ),
@@ -112,8 +116,8 @@ export default function RegModal(props) {
                     dispatch(
                       delCourseByAdmin(
                         {
-                          taiKhoan: props.user.taiKhoan,
-                          maKhoaHoc: course.maKhoaHoc,
+                          taiKhoan: user.taiKhoan,
+                          maKhoaHoc: props.course.maKhoaHoc,
                         },
                         pathname,
                       ),
@@ -138,15 +142,21 @@ export default function RegModal(props) {
       width: "15%",
     },
     {
-      title: "Tên khóa học",
-      dataIndex: "tenKhoaHoc",
-      key: "tenKhoaHoc",
-      width: "55%",
+      title: "Tên tài khoản",
+      dataIndex: "taiKhoan",
+      key: "taiKhoan",
+      width: "25%",
+    },
+    {
+      title: "Học viên",
+      dataIndex: "hoTen",
+      key: "hoTen",
+      width: "30%",
     },
     {
       title: "Chờ xác nhận",
       width: "35%",
-      render: (text, course) => {
+      render: (text, user) => {
         return (
           <>
             <Button
@@ -166,8 +176,8 @@ export default function RegModal(props) {
                     dispatch(
                       delCourseByAdmin(
                         {
-                          taiKhoan: props.user.taiKhoan,
-                          maKhoaHoc: course.maKhoaHoc,
+                          taiKhoan: user.taiKhoan,
+                          maKhoaHoc: props.course.maKhoaHoc,
                         },
                         pathname,
                       ),
@@ -187,11 +197,11 @@ export default function RegModal(props) {
   return (
     <div
       className="modal fade"
-      id="regModal"
+      id="regModalCourse"
       data-bs-backdrop="static"
       data-bs-keyboard="false"
       tabIndex={-1}
-      aria-labelledby="staticRegModal"
+      aria-labelledby="staticRegModalCourse"
       aria-hidden="true"
     >
       <div className="modal-dialog modal-lg">
@@ -199,14 +209,14 @@ export default function RegModal(props) {
           <div className="modal-body">
             <div className="border-bottom border-secondary">
               <div className="row">
-                <h5 className="text-left my-1 col-3"> Chọn khóa học</h5>
+                <h5 className="text-left my-1 col-3"> Chọn người dùng</h5>
 
                 <form className="form-group mb-2 col-6">
                   <input
-                    onChange={(e) => setSearchCourse(e.target.value)}
-                    value={searchCourse}
+                    onChange={(e) => setSearchUser(e.target.value)}
+                    value={searchUser}
                     data-bs-toggle="dropdown"
-                    placeholder="Nhập hoặc chọn khóa học"
+                    placeholder="Nhập hoặc chọn người dùng"
                     type="text"
                     className="form-control dropdown-toggle"
                   />
@@ -219,7 +229,7 @@ export default function RegModal(props) {
                       overflowY: "scroll",
                     }}
                   >
-                    {renderListUnregisteredCourse(unRegisteredCourse)}
+                    {renderListUnregisteredUsers(unregisteredUsers)}
                   </ul>
                 </form>
 
@@ -241,13 +251,13 @@ export default function RegModal(props) {
                             dispatch(
                               regCourseByAdmin(
                                 {
-                                  taiKhoan: props.user.taiKhoan,
-                                  maKhoaHoc: courseCode,
+                                  taiKhoan: userCode,
+                                  maKhoaHoc: props.course.maKhoaHoc,
                                 },
                                 pathname,
                               ),
                             );
-                            setSearchCourse("");
+                            setSearchUser("");
                           }
                         });
                       }}
@@ -267,9 +277,9 @@ export default function RegModal(props) {
           </div>
           <div className="modal-body">
             <div className="border-bottom border-secondary">
-              <h5>Khóa học chờ xác thực</h5>
+              <h5>Học viên chờ xác thực</h5>
               <Table
-                dataSource={courseWaitConfirm}
+                dataSource={usersWaitConfirm}
                 columns={columns}
                 rowKey="tenKhoaHoc"
                 bordered
@@ -279,9 +289,9 @@ export default function RegModal(props) {
           </div>
           <div className="modal-body">
             <div className="border-bottom border-secondary">
-              <h5>Khóa học đã ghi danh</h5>
+              <h5>Học viên đã tham gia khóa học</h5>
               <Table
-                dataSource={courseConfirmed}
+                dataSource={usersConfirmed}
                 columns={columnsConfirmed}
                 rowKey="tenKhoaHoc"
                 bordered

@@ -4,8 +4,11 @@ import Swal from "sweetalert2";
 import { getCourseUnReg } from "../CoursesUnReg/actions";
 import { getCourseWaitConfirm } from "../CourseWaitConfirm/actions";
 import { getCourseConfirm } from "../CourseConfirmed/actions";
+import { getUsersUnreg } from "../../../../Courses/RegModalCourse/duck/UsersUnreg/actions";
+import { getUsersWaitConfirm } from "../../../../Courses/RegModalCourse/duck/UsersWaitConfirm/actions";
+import { getUsersConfirmed } from "../../../../Courses/RegModalCourse/duck/UsersConfirmed/actions";
 
-export const regCourseByAdmin = (data) => {
+export const regCourseByAdmin = (data, pathname) => {
   return (dispatch) => {
     dispatch(regCourseByAdminRequest());
 
@@ -13,9 +16,15 @@ export const regCourseByAdmin = (data) => {
       .post("QuanLyKhoaHoc/GhiDanhKhoaHoc", data)
       .then((result) => {
         dispatch(regCourseByAdminSuccess(result.data));
-        dispatch(getCourseUnReg(data.taiKhoan));
-        dispatch(getCourseWaitConfirm({ taiKhoan: data.taiKhoan }));
-        dispatch(getCourseConfirm({ taiKhoan: data.taiKhoan }));
+        if (pathname === "/admin/users") {
+          dispatch(getCourseUnReg(data.taiKhoan));
+          dispatch(getCourseWaitConfirm({ taiKhoan: data.taiKhoan }));
+          dispatch(getCourseConfirm({ taiKhoan: data.taiKhoan }));
+        } else if (pathname === "/admin/courses") {
+          dispatch(getUsersUnreg({ maKhoaHoc: data.maKhoaHoc }));
+          dispatch(getUsersWaitConfirm({ maKhoaHoc: data.maKhoaHoc }));
+          dispatch(getUsersConfirmed({ maKhoaHoc: data.maKhoaHoc }));
+        }
         Swal.fire("Thành công", "Ghi danh thành công", "success");
       })
       .catch((error) => {

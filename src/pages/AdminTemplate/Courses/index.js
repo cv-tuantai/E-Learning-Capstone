@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../components/Loader";
-import { Link } from "react-router-dom";
 import {
   CalendarOutlined,
   DeleteOutlined,
@@ -18,17 +17,25 @@ import moment from "moment";
 import { addCourse } from "./duck/AddCourse/actions";
 import { deleteCourse } from "./duck/DeleteCourse/action";
 import { updateCourse, updateCourseNoImage } from "./duck/UpdateCourse/actions";
+import { getListUsers } from "../Users/duck/ListUsers/actions";
+import RegModalCourse from "./RegModalCourse";
+import { getUsersUnreg } from "./RegModalCourse/duck/UsersUnreg/actions";
+import { getUsersWaitConfirm } from "./RegModalCourse/duck/UsersWaitConfirm/actions";
+import { getUsersConfirmed } from "./RegModalCourse/duck/UsersConfirmed/actions";
 
 export default function Courses() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.listCoursesReducer);
   const courseCate = useSelector((state) => state.courseCategoryReducer.data);
+  const listUser = useSelector((state) => state.listUserReducer.data);
+
   const [dataCourse, setDataCourse] = useState(null);
   const [thumb, setThumb] = useState("");
 
   useEffect(() => {
     dispatch(fetchListCourses());
     dispatch(fetchCoursesCate());
+    dispatch(getListUsers());
   }, []);
 
   useEffect(() => {
@@ -49,7 +56,18 @@ export default function Courses() {
     });
   };
 
+  console.log(dataCourse);
+
   const creator = JSON.parse(localStorage.getItem("user"));
+
+  const renderListCreator = () => {
+    const listGV = listUser?.filter((user) => user.maLoaiNguoiDung === "GV");
+    return listGV?.map((user, index) => (
+      <option key={index} value={user.taiKhoan}>
+        {user.hoTen}
+      </option>
+    ));
+  };
 
   const courseSchema = yup.object().shape({
     maKhoaHoc: yup
@@ -393,6 +411,7 @@ export default function Courses() {
                                         ? dataCourse.nguoiTao.hoTen
                                         : creator.hoTen}
                                     </option>
+                                    {renderListCreator()}
                                   </Field>
                                   <ErrorMessage
                                     name="taiKhoanNguoiTao"
@@ -500,13 +519,22 @@ export default function Courses() {
               <DeleteOutlined style={{ color: "red" }} />{" "}
             </span>
 
-            <Link
-              to={`/admin/showtime/${course.maPhim}`}
+            {/* register */}
+            <span
+              type="button"
               key={3}
+              data-bs-toggle="modal"
+              data-bs-target="#regModalCourse"
               style={{ fontSize: 25 }}
+              onClick={() => {
+                handleDataCourse(course);
+                dispatch(getUsersUnreg({ maKhoaHoc: course.maKhoaHoc }));
+                dispatch(getUsersWaitConfirm({ maKhoaHoc: course.maKhoaHoc }));
+                dispatch(getUsersConfirmed({ maKhoaHoc: course.maKhoaHoc }));
+              }}
             >
-              <CalendarOutlined style={{ color: "green" }} />{" "}
-            </Link>
+              <CalendarOutlined style={{ color: "green" }} />
+            </span>
           </>
         );
       },
@@ -535,6 +563,7 @@ export default function Courses() {
         rowKey={"maKhoaHoc"}
         pagination={{ pageSize: 5 }}
       />
+      <RegModalCourse course={dataCourse} />
     </div>
   );
 }

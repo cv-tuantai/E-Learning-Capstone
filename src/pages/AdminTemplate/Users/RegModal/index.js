@@ -1,14 +1,28 @@
+import { Button, Table } from "antd";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { regCourseByAdmin } from "./duck/regCourseByAdmin/actions";
+import { delCourseByAdmin } from "./duck/delCourseByAdmin/actions";
+import Swal from "sweetalert2";
 
-export default function RegModal() {
+export default function RegModal(props) {
   const dispatch = useDispatch();
   const [searchCourse, setSearchCourse] = useState("");
-  const [courseInfo, setCourseInfo] = useState({});
+  const [courseCode, setCourseCode] = useState("");
 
   const unRegisteredCourse = useSelector(
     (state) => state.courseUnRegReducer.data,
   );
+
+  const courseWaitConfirm = useSelector(
+    (state) => state.courseWaitConfirmReducer.data,
+  );
+
+  const courseConfirmed = useSelector(
+    (state) => state.courseConfirmReducer.data,
+  );
+
+  console.log(props);
 
   const renderListUnregisteredCourse = (unRegisteredCourse) => {
     if (!unRegisteredCourse) return null;
@@ -23,7 +37,7 @@ export default function RegModal() {
       <li
         key={index}
         onClick={() => {
-          setCourseInfo(item);
+          setCourseCode(item.maKhoaHoc);
           setSearchCourse(item.tenKhoaHoc);
         }}
         className="dropdown-item"
@@ -32,6 +46,134 @@ export default function RegModal() {
       </li>
     ));
   };
+
+  const columns = [
+    {
+      title: "STT",
+      key: "index",
+      render: (text, record, index) => index + 1,
+      width: "15%",
+    },
+    {
+      title: "Tên khóa học",
+      dataIndex: "tenKhoaHoc",
+      key: "tenKhoaHoc",
+      width: "55%",
+    },
+    {
+      title: "Chờ xác nhận",
+      width: "35%",
+      render: (text, course) => {
+        return (
+          <>
+            <Button
+              className="me-2"
+              type="primary"
+              onClick={() =>
+                Swal.fire({
+                  icon: "question",
+                  title: "Xác nhận",
+                  text: "Bạn có chắc chắn ghi danh?",
+                  showCancelButton: true,
+                  showConfirmButton: true,
+                  cancelButtonText: "Hủy bỏ",
+                  confirmButtonText: "Đồng ý",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(
+                      regCourseByAdmin({
+                        taiKhoan: props.user.taiKhoan,
+                        maKhoaHoc: course.maKhoaHoc,
+                      }),
+                    );
+                  }
+                })
+              }
+            >
+              Xác nhận
+            </Button>
+            <Button
+              type="primary"
+              danger
+              onClick={() =>
+                Swal.fire({
+                  icon: "question",
+                  title: "Xác nhận",
+                  text: "Bạn có chắc chắn hủy ghi danh?",
+                  showCancelButton: true,
+                  showConfirmButton: true,
+                  cancelButtonText: "Hủy bỏ",
+                  confirmButtonText: "Đồng ý",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(
+                      delCourseByAdmin({
+                        taiKhoan: props.user.taiKhoan,
+                        maKhoaHoc: course.maKhoaHoc,
+                      }),
+                    );
+                  }
+                })
+              }
+            >
+              Hủy bỏ
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
+
+  const columnsConfirmed = [
+    {
+      title: "STT",
+      key: "index",
+      render: (text, record, index) => index + 1,
+      width: "15%",
+    },
+    {
+      title: "Tên khóa học",
+      dataIndex: "tenKhoaHoc",
+      key: "tenKhoaHoc",
+      width: "55%",
+    },
+    {
+      title: "Chờ xác nhận",
+      width: "35%",
+      render: (text, course) => {
+        return (
+          <>
+            <Button
+              type="primary"
+              danger
+              onClick={() =>
+                Swal.fire({
+                  icon: "question",
+                  title: "Xác nhận",
+                  text: "Bạn có chắc chắn hủy ghi danh?",
+                  showCancelButton: true,
+                  showConfirmButton: true,
+                  cancelButtonText: "Hủy bỏ",
+                  confirmButtonText: "Đồng ý",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    dispatch(
+                      delCourseByAdmin({
+                        taiKhoan: props.user.taiKhoan,
+                        maKhoaHoc: course.maKhoaHoc,
+                      }),
+                    );
+                  }
+                })
+              }
+            >
+              Hủy ghi danh
+            </Button>
+          </>
+        );
+      },
+    },
+  ];
 
   return (
     <div
@@ -71,9 +213,35 @@ export default function RegModal() {
                     {renderListUnregisteredCourse(unRegisteredCourse)}
                   </ul>
                 </form>
+
                 <div className="col-3">
                   <div className="d-flex justify-content-between align-items-center">
-                    <button className="btn btn-success me-1">Ghi danh</button>
+                    <button
+                      className="btn btn-success me-1"
+                      onClick={() => {
+                        Swal.fire({
+                          icon: "question",
+                          title: "Xác nhận",
+                          text: "Bạn có chắc chắn ghi danh?",
+                          showCancelButton: true,
+                          showConfirmButton: true,
+                          cancelButtonText: "Hủy bỏ",
+                          confirmButtonText: "Đồng ý",
+                        }).then((result) => {
+                          if (result.isConfirmed) {
+                            dispatch(
+                              regCourseByAdmin({
+                                taiKhoan: props.user.taiKhoan,
+                                maKhoaHoc: courseCode,
+                              }),
+                            );
+                            setSearchCourse("");
+                          }
+                        });
+                      }}
+                    >
+                      Ghi danh
+                    </button>
                     <button
                       type="button"
                       className="btn-close"
@@ -85,18 +253,29 @@ export default function RegModal() {
               </div>
             </div>
           </div>
-          <div className="modal-body">...</div>
-          <div className="modal-footer">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" className="btn btn-primary">
-              Understood
-            </button>
+          <div className="modal-body">
+            <div className="border-bottom border-secondary">
+              <h5>Khóa học chờ xác thực</h5>
+              <Table
+                dataSource={courseWaitConfirm}
+                columns={columns}
+                rowKey="tenKhoaHoc"
+                bordered
+                pagination={{ pageSize: 3 }}
+              />
+            </div>
+          </div>
+          <div className="modal-body">
+            <div className="border-bottom border-secondary">
+              <h5>Khóa học đã ghi danh</h5>
+              <Table
+                dataSource={courseConfirmed}
+                columns={columnsConfirmed}
+                rowKey="tenKhoaHoc"
+                bordered
+                pagination={{ pageSize: 3 }}
+              />
+            </div>
           </div>
         </div>
       </div>

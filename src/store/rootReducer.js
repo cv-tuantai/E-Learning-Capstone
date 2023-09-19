@@ -18,6 +18,8 @@ import updateCourseReducer from "../pages/AdminTemplate/Courses/duck/UpdateCours
 import courseWaitConfirmReducer from "../pages/AdminTemplate/Users/RegModal/duck/CourseWaitConfirm/reducer";
 import courseUnRegReducer from "../pages/AdminTemplate/Users/RegModal/duck/CoursesUnReg/reducer";
 import courseConfirmReducer from "../pages/AdminTemplate/Users/RegModal/duck/CourseConfirmed/reducer";
+import regCourseByAdminReducer from "../pages/AdminTemplate/Users/RegModal/duck/regCourseByAdmin/reducer";
+import delCourseByAdminReducer from "../pages/AdminTemplate/Users/RegModal/duck/delCourseByAdmin/reducer";
 
 const rootReducer = combineReducers({
   listCoursesReducer,
@@ -39,6 +41,8 @@ const rootReducer = combineReducers({
   courseUnRegReducer,
   courseWaitConfirmReducer,
   courseConfirmReducer,
+  regCourseByAdminReducer,
+  delCourseByAdminReducer,
 });
 
 export default rootReducer;

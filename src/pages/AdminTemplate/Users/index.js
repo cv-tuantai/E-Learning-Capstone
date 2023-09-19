@@ -319,6 +319,7 @@ export default function Users() {
               data-bs-target="#regModal"
               style={{ fontSize: 25 }}
               onClick={() => {
+                handleDataUser(user);
                 dispatch(getCourseUnReg(user.taiKhoan));
                 dispatch(getCourseWaitConfirm({ taiKhoan: user.taiKhoan }));
                 dispatch(getCourseConfirm({ taiKhoan: user.taiKhoan }));
@@ -352,7 +353,7 @@ export default function Users() {
         rowKey={"taiKhoan"}
         pagination={{ pageSize: 8 }}
       />
-      <RegModal />
+      <RegModal user={dataUser} />
     </div>
   );
 }

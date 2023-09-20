@@ -2,6 +2,7 @@ import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 import { getUserDetail } from "../UserDetail/actions";
+import { getListUsers } from "../../../../AdminTemplate/Users/duck/ListUsers/actions";
 
 export const updateUser = (data) => {
   return (dispatch) => {
@@ -11,11 +12,21 @@ export const updateUser = (data) => {
       .put("QuanLyNguoiDung/CapNhatThongTinNguoiDung", data)
       .then((result) => {
         dispatch(updateUserSuccess(result.data));
-        dispatch(getUserDetail());
         Swal.fire({
           icon: "success",
           title: "Thành công",
           text: "Cập nhật thông tin người dùng thành công",
+        }).then(() => {
+          const closeButton = document.querySelector(".btn-close");
+          // sau Swal, đóng modal rồi mới getListUsers để tránh lỗi giao diện
+          if (closeButton) {
+            closeButton.addEventListener("click", () => {
+              dispatch(getListUsers());
+            });
+            closeButton.click();
+          } else {
+            dispatch(getUserDetail());
+          }
         });
       })
       .catch((error) => {

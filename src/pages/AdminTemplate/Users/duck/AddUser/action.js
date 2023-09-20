@@ -1,6 +1,7 @@
 import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
+import { getListUsers } from "../ListUsers/actions";
 
 export const addUser = (data) => {
   return (dispatch) => {
@@ -14,6 +15,15 @@ export const addUser = (data) => {
           icon: "success",
           title: "Thành công",
           text: "Thêm người dùng thành công",
+        }).then(() => {
+          const closeButton = document.querySelector(".btn-close");
+          // sau Swal, đóng modal rồi mới getListUsers để tránh lỗi giao diện
+          if (closeButton) {
+            closeButton.addEventListener("click", () => {
+              dispatch(getListUsers());
+            });
+            closeButton.click();
+          }
         });
       })
       .catch((error) => {

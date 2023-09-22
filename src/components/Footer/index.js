@@ -1,7 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer id="footer">
       <div className="footer-top">
@@ -10,20 +13,20 @@ export default function Footer() {
             <div className="col-lg-3 col-md-6 footer-contact">
               <h3>Cybersoft</h3>
               <p>
-                112 Đ. Cao Thắng
+                {t("footer.street")}
                 <br />
-                Phường 4, Quận 3
+                {t("footer.district")}
                 <br />
-                Thành phố Hồ Chí Minh <br />
+                {t("footer.city")} <br />
                 <br />
-                <strong>Phone:</strong> 096.105.1014
+                <strong>{t("contact.phone")}:</strong> 096.105.1014
                 <br />
                 <strong>Email:</strong> cybersoft@example.com
                 <br />
               </p>
             </div>
             <div className="col-lg-2 col-md-6 footer-links">
-              <h4>Liên kết</h4>
+              <h4>{t("footer.link")}</h4>
               <ul>
                 <li>
                   <i
@@ -31,7 +34,7 @@ export default function Footer() {
                     className="bi bi-chevron-right"
                   ></i>
                   <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-                    Trang chủ
+                    {t("footer.home")}
                   </Link>
                 </li>
                 <li>
@@ -39,7 +42,7 @@ export default function Footer() {
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <Link to="/all-courses">Khóa học</Link>
+                  <Link to="/all-courses">{t("header.courses")}</Link>
                 </li>
                 <li>
                   <i
@@ -47,7 +50,7 @@ export default function Footer() {
                     className="bi bi-chevron-right"
                   ></i>
                   <Link to="/info" onClick={() => window.scrollTo(0, 0)}>
-                    Thông tin
+                    {t("header.info")}
                   </Link>
                 </li>
                 <li>
@@ -56,13 +59,13 @@ export default function Footer() {
                     className="bi bi-chevron-right"
                   ></i>
                   <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
-                    Liên hệ
+                    {t("header.contact")}
                   </Link>
                 </li>
               </ul>
             </div>
             <div className="col-lg-3 col-md-6 footer-links">
-              <h4>Khóa học</h4>
+              <h4>{t("header.courses")}</h4>
               <ul>
                 <li>
                   <i
@@ -90,13 +93,13 @@ export default function Footer() {
                     style={{ fontSize: 12 }}
                     className="bi bi-chevron-right"
                   ></i>
-                  <a href="#!">NodeJS</a>
+                  <a href="#!">Mobile</a>
                 </li>
               </ul>
             </div>
             <div className="col-lg-4 col-md-6 footer-newsletter">
-              <h4>Đăng ký theo dõi</h4>
-              <p>Hãy đăng ký để nhận được những khóa học mới nhất nhé.</p>
+              <h4>{t("footer.sub")}</h4>
+              <p>{t("footer.sub1")}</p>
               <form>
                 <input type="email" name="email" />
                 <input

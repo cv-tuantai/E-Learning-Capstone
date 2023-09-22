@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Carousel() {
+  const { t } = useTranslation();
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -28,9 +30,9 @@ export default function Carousel() {
           <br />
           Leading Tomorrow
         </h1>
-        <h2 className="pt-3">Chào mừng đến với hệ thống E-learning</h2>
+        <h2 className="pt-3">{t("carousel.welcome")}</h2>
         <Link to="/all-courses" className="btn-get-started">
-          Bắt đầu nào
+          {t("carousel.start")}
         </Link>
       </div>
     </section>

@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCoursesByCate } from "./duck/actions";
 import { useParams } from "react-router-dom";
 import CourseItem from "../Home/Courses/CourseItem";
+import { useTranslation } from "react-i18next";
 
 export default function CourseCate() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.coursesByCateReducer);
   const { cate } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchCoursesByCate(cate));
@@ -25,8 +27,8 @@ export default function CourseCate() {
     <section id="popular-courses" className="courses">
       <div className="container" data-aos="fade-up">
         <div className="section-title pt-5">
-          <h2>Khóa học</h2>
-          <p>Khóa học theo danh mục</p>
+          <h2>{t("courses.courses")}</h2>
+          <p>{t("courses.courseCate")}</p>
         </div>
         <div className="row" data-aos="zoom-in" data-aos-delay={100}>
           {renderCourses()}

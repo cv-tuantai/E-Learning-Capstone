@@ -4,6 +4,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { fetchCoursesCate } from "./duck/actions";
 import { Input } from "antd";
 import { actLogout } from "../../pages/UserTemplate/Login/duck/actions";
+import { useTranslation } from "react-i18next";
+import flagEn from "../../assets/images/united-kingdom.png";
+import flagVn from "../../assets/images/vietnam.png";
 
 const { Search } = Input;
 
@@ -13,6 +16,13 @@ export default function Header() {
   const { data } = useSelector((state) => state.courseCategoryReducer);
 
   const [keyword, setKeyword] = useState("");
+  const [flag, setFlag] = useState(localStorage.getItem("flag") || flagVn);
+
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    dispatch(fetchCoursesCate());
+  }, []);
 
   const renderCourseCate = () => {
     return data?.map((cate, index) => {
@@ -23,10 +33,6 @@ export default function Header() {
       );
     });
   };
-
-  useEffect(() => {
-    dispatch(fetchCoursesCate());
-  }, []);
 
   const onSearch = (keyword) => {
     if (keyword) {
@@ -52,25 +58,70 @@ export default function Header() {
     }
   };
 
+  const renderSwitchButton = () => {
+    return (
+      <div className="dropdown">
+        <span
+          className="dropdown-toggle"
+          id="DropdownSwitchLng"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src={flag} width={30} alt="..." />
+        </span>
+        <ul className="dropdown-menu" aria-labelledby="DropdownSwitchLng">
+          <li>
+            <button
+              className="dropdown-item"
+              onClick={() => {
+                i18n.changeLanguage("vi");
+                setFlag(flagVn);
+                localStorage.setItem("flag", flagVn);
+                localStorage.setItem("lng", "vi");
+              }}
+            >
+              <img src={flagVn} width={30} alt="..." /> Tiếng Việt
+            </button>
+          </li>
+          <li>
+            <button
+              className="dropdown-item"
+              onClick={() => {
+                i18n.changeLanguage("en");
+                setFlag(flagEn);
+                localStorage.setItem("flag", flagEn);
+                localStorage.setItem("lng", "en");
+              }}
+            >
+              <img src={flagEn} width={30} alt="..." /> English
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
+  };
+
   const renderLogin = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       return (
-        <div>
+        <div className="d-flex align-items-center">
           <Link to="/user/login" className="btn">
-            Đăng nhập
+            {t("header.signIn")}
           </Link>
-          <Link to="/user/register" className="get-started-btn">
-            Đăng ký
+          <Link to="/user/register" className="get-started-btn me-3">
+            {t("header.signUp")}
           </Link>
+          {renderSwitchButton()}
         </div>
       );
     } else {
       return (
-        <div className="btn-group">
+        <div className="btn-group align-items-center">
           <button
             type="button"
-            className="btn btn-success dropdown-toggle"
+            className="btn btn-success dropdown-toggle me-2"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
@@ -85,7 +136,7 @@ export default function Header() {
                     style={{ fontSize: 15 }}
                     to="/admin/courses"
                   >
-                    Vào trang quản trị
+                    {t("header.goToAdminPage")}
                   </Link>
                 </li>
                 <li>
@@ -99,7 +150,7 @@ export default function Header() {
                 style={{ fontSize: 15 }}
                 to="/user/profile"
               >
-                Thông tin tài khoản
+                {t("header.userInfo")}
               </Link>
             </li>
             <li>
@@ -111,10 +162,11 @@ export default function Header() {
                 style={{ fontSize: 15 }}
                 onClick={() => dispatch(actLogout(navigate))}
               >
-                Đăng xuất
+                {t("header.signOut")}
               </button>
             </li>
           </ul>
+          {renderSwitchButton()}
         </div>
       );
     }
@@ -122,13 +174,13 @@ export default function Header() {
 
   return (
     <header id="header" className="fixed-top">
-      <div className="container-fluid container-lg d-flex align-items-center justify-content-between">
+      <div className="container-fluid container-xl d-flex align-items-center justify-content-between">
         <h1 className="logo">
           <Link to="/">E-Learning</Link>
         </h1>
 
         <Search
-          placeholder="Tìm khóa học"
+          placeholder={t("header.findCourse")}
           onChange={(e) => setKeyword(e.target.value)}
           onSearch={onSearch}
           value={keyword}
@@ -141,18 +193,19 @@ export default function Header() {
           <ul>
             <li className="dropdown">
               <Link to="/" onClick={handleDropdownClick}>
-                <span>Danh mục</span> <i className="bi bi-chevron-down" />
+                <span>{t("header.categories")}</span>{" "}
+                <i className="bi bi-chevron-down" />
               </Link>
               <ul>{renderCourseCate()}</ul>
             </li>
             <li>
-              <NavLink to="/all-courses">Khóa học</NavLink>
+              <NavLink to="/all-courses">{t("header.courses")}</NavLink>
             </li>
             <li>
-              <NavLink to="/info">Thông tin</NavLink>
+              <NavLink to="/info">{t("header.info")}</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Liên hệ</NavLink>
+              <NavLink to="/contact">{t("header.contact")}</NavLink>
             </li>
           </ul>
           <i

@@ -1,18 +1,21 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
+import { useTranslation } from "react-i18next";
 import * as yup from "yup";
 
 export default function Contact() {
+  const { t } = useTranslation();
+
   const schema = yup.object().shape({
-    name: yup.string().required("Họ tên không để trống!"),
-    email: yup.string().required("Email không để trống!"),
-    subject: yup.string().required("Tiêu đề không để trống!"),
-    message: yup.string().required("Tin nhắn không để trống!"),
+    name: yup.string().required(t("contact.nameNotBlank")),
+    email: yup.string().required(t("contact.emailNotBlank")),
+    subject: yup.string().required(t("contact.titleNotBlank")),
+    message: yup.string().required(t("contact.messNotBlank")),
   });
 
   return (
     <section id="contact" className="contact" style={{ paddingTop: "7rem" }}>
-      <h2 className="text-center pb-3">Liên hệ chúng tôi!</h2>
+      <h2 className="text-center pb-3">{t("contact.contactUs")}</h2>
       <div data-aos="fade-up">
         <iframe
           style={{ border: 0, width: "100%", height: 350 }}
@@ -27,8 +30,8 @@ export default function Contact() {
             <div className="info">
               <div className="address">
                 <i className="bi bi-geo-alt" />
-                <h4>Địa chỉ:</h4>
-                <p>112 Cao Thắng, Phường 4, Quận 3, Tp Hồ Chí Minh</p>
+                <h4>{t("contact.add")}:</h4>
+                <p>{t("contact.add-sub")}</p>
               </div>
               <div className="email">
                 <i className="bi bi-envelope" />
@@ -37,7 +40,7 @@ export default function Contact() {
               </div>
               <div className="phone">
                 <i className="bi bi-phone" />
-                <h4>Điện thoại:</h4>
+                <h4>{t("contact.phone")}:</h4>
                 <p>096.105.1014</p>
               </div>
             </div>
@@ -60,7 +63,7 @@ export default function Contact() {
                         type="text"
                         name="name"
                         className="form-control"
-                        placeholder="Tên của bạn"
+                        placeholder={t("contact.name")}
                       />
                       <ErrorMessage
                         name="name"
@@ -73,7 +76,7 @@ export default function Contact() {
                         type="email"
                         className="form-control"
                         name="email"
-                        placeholder="Email của bạn"
+                        placeholder={t("contact.email")}
                       />
                       <ErrorMessage
                         name="email"
@@ -87,7 +90,7 @@ export default function Contact() {
                       type="text"
                       className="form-control"
                       name="subject"
-                      placeholder="Tiêu đề"
+                      placeholder={t("contact.title")}
                     />
                     <ErrorMessage
                       name="subject"
@@ -101,7 +104,7 @@ export default function Contact() {
                       as="textarea"
                       name="message"
                       rows={5}
-                      placeholder="Tin nhắn"
+                      placeholder={t("contact.mess")}
                     />
                     <ErrorMessage
                       name="message"
@@ -112,7 +115,7 @@ export default function Contact() {
 
                   <div className="text-center">
                     <button type="submit" onClick={(e) => e.preventDefault()}>
-                      Send Message
+                      {t("contact.msg")}
                     </button>
                   </div>
                 </Form>

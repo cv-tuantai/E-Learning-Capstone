@@ -7,12 +7,14 @@ import img1 from "../../../assets/images/hero-flex.png";
 import img2 from "../../../assets/images/olstudy.png";
 import img3 from "../../../assets/images/education-hero.png";
 import imgError from "../../../assets/images/Nodejs.png";
+import { useTranslation } from "react-i18next";
 
 export default function DetailCourse() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useSelector((state) => state.detailCourseReducer);
   const { maKhoaHoc } = useParams();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getDetailCourse(maKhoaHoc));
@@ -39,23 +41,23 @@ export default function DetailCourse() {
             </div>
             <div className="col-lg-4">
               <div className="course-info d-flex justify-content-between align-items-center">
-                <h5>Tên khóa học</h5>
+                <h5>{t("detail.courseName")}</h5>
                 <p>{data?.tenKhoaHoc}</p>
               </div>
               <div className="course-info d-flex justify-content-between align-items-center">
-                <h5>Lĩnh vực</h5>
+                <h5>{t("detail.field")}</h5>
                 <p>{data?.danhMucKhoaHoc.tenDanhMucKhoaHoc}</p>
               </div>
               <div className="course-info d-flex justify-content-between align-items-center">
-                <h5>Giảng viên</h5>
+                <h5>{t("lecturers.lecturers")}</h5>
                 <p>{data?.nguoiTao.hoTen}</p>
               </div>
               <div className="course-info d-flex justify-content-between align-items-center">
-                <h5>Giá</h5>
+                <h5>{t("detail.price")}</h5>
                 <p>$169</p>
               </div>
               <div className="course-info d-flex justify-content-between align-items-center">
-                <h5>Số học viên</h5>
+                <h5>{t("detail.students")}</h5>
                 <p>{data?.soLuongHocVien}</p>
               </div>
               <div className="text-center">
@@ -71,12 +73,12 @@ export default function DetailCourse() {
                       };
                       dispatch(registerCourse(regInfo));
                     } else {
-                      alert("Bạn cần phải đăng nhập trước.");
+                      alert(t("detail.signInFirst"));
                       navigate("/user/login", { replace: true });
                     }
                   }}
                 >
-                  Đăng ký
+                  {t("detail.reg")}
                 </button>
               </div>
             </div>
@@ -95,17 +97,17 @@ export default function DetailCourse() {
                     data-bs-toggle="tab"
                     href="#tab-1"
                   >
-                    Chương 1: Giới thiệu
+                    {t("detail.part1")}
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" data-bs-toggle="tab" href="#tab-2">
-                    Chương 2: Kiến thức căn bản
+                    {t("detail.part2")}
                   </a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" data-bs-toggle="tab" href="#tab-3">
-                    Chương 3: Kiến thức chuyên sâu
+                    {t("detail.part3")}
                   </a>
                 </li>
               </ul>
@@ -116,13 +118,10 @@ export default function DetailCourse() {
                   <div className="row">
                     <div className="col-lg-6 details order-2 order-lg-1">
                       <ul>
-                        <li>Các khái niệm về React Component</li>
-                        <li>Thiết lập môi trường cho Windows</li>
-                        <li>Tạo ứng dụng React - React-Scripts</li>
-                        <li>
-                          Ghi chú nhanh về dấu ngoặc kép cho string
-                          interpolation
-                        </li>
+                        <li>{t("detail.part4")}</li>
+                        <li>{t("detail.part5")}</li>
+                        <li>{t("detail.part6")}</li>
+                        <li>{t("detail.part7")}</li>
                       </ul>
                     </div>
                     <div className="col-lg-6 text-center order-1 order-lg-2">
@@ -134,13 +133,11 @@ export default function DetailCourse() {
                   <div className="row">
                     <div className="col-lg-6 details order-2 order-lg-1">
                       <ul>
-                        <li>Trang chủ và thành phần thư mục</li>
-                        <li>Hướng dẫn khóa học + Liên kết Github</li>
-                        <li>Trang chủ thương mại điện tử + thiết lập SASS</li>
-                        <li>Tệp CSS và SCSS</li>
-                        <li>
-                          React 17: Cập nhật các gói + Phiên bản React mới nhất
-                        </li>
+                        <li>{t("detail.part8")}</li>
+                        <li>{t("detail.part9")}</li>
+                        <li>{t("detail.part10")}</li>
+                        <li>{t("detail.part11")}</li>
+                        <li>{t("detail.part12")}</li>
                       </ul>
                     </div>
                     <div className="col-lg-6 text-center order-1 order-lg-2">
@@ -152,9 +149,9 @@ export default function DetailCourse() {
                   <div className="row">
                     <div className="col-lg-6 details order-2 order-lg-1">
                       <ul>
-                        <li>connect() and mapStateToProps</li>
-                        <li>Trạng thái thư mục vào Redux</li>
-                        <li>Thành phần Tổng quan về Bộ sưu tập</li>
+                        <li>{t("detail.part13")}</li>
+                        <li>{t("detail.part14")}</li>
+                        <li>{t("detail.part15")}</li>
                       </ul>
                     </div>
                     <div className="col-lg-6 text-center order-1 order-lg-2">

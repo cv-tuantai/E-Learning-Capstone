@@ -3,11 +3,13 @@ import CourseItem from "../Home/Courses/CourseItem";
 import Loader from "../../../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListCourses } from "../Home/Courses/duck/actions";
+import { useTranslation } from "react-i18next";
 
 export default function AllCourses() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.listCoursesReducer);
   const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useTranslation();
 
   const coursesPerPage = 6;
   const indexOfLastCourse = currentPage * coursesPerPage;
@@ -51,8 +53,8 @@ export default function AllCourses() {
     <section id="popular-courses" className="courses">
       <div className="container" data-aos="fade-up">
         <div className="section-title pt-5">
-          <h2>Khóa học</h2>
-          <p>Tất cả khóa học</p>
+          <h2>{t("header.courses")}</h2>
+          <p>{t("courses.allCourses")}</p>
         </div>
         <div className="row" data-aos="zoom-in" data-aos-delay={100}>
           {renderCourses()}

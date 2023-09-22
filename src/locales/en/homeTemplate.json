@@ -1,0 +1,118 @@
+{
+  "header": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "goToAdminPage": "Go to admin page",
+    "userInfo": "Account information",
+    "signOut": "Sign out",
+    "findCourse": "Find courses",
+    "categories": "Categories",
+    "courses": "Courses",
+    "info": "Information",
+    "contact": "Contact"
+  },
+  "carousel": {
+    "welcome": "Welcome to E-learning system",
+    "start": "Start"
+  },
+  "about": {
+    "why": "Why choose E-Learning?",
+    "introduce": "Learn through practical projects, learn with practice, not theory man, analyze the root of the problem, build from small examples to Carry out a large real-life project so that students can complete it right.",
+    "part1": "A systematic roadmap from zero to professional and advanced.",
+    "part2": "Training to develop programming capacity and passion.",
+    "part3": "Automatically grade multiple choice tests and ask questions depending on student level",
+    "part4": "Statistics and compares the learning abilities of students at the same level to set goals.",
+    "part5": "Interact with mentors and lecturers through discussion.",
+    "part6": "Grading papers and being able to ask questions online for review.",
+    "part7": "Connect your CV to V learning partners.",
+    "part8": "Internship opportunities at big companies like FPT, Microsoft."
+  },
+  "counter": {
+    "students": "Students",
+    "courses": "Courses",
+    "hours": "Class hours",
+    "lecturers": "Lecturers"
+  },
+  "courses": {
+    "courses": "Courses",
+    "highlight": "Outstanding courses",
+    "allCourses": "All courses",
+    "courseCate": "Courses by category"
+  },
+  "lecturers": {
+    "lecturers": "Lecturers",
+    "highlight": "Outstanding lecturer",
+    "part1": "Frontend Programming",
+    "part2": "Instructor with experience and enthusiasm for the profession, with over 10 years of experience",
+    "part3": "Backend Programming",
+    "part4": "Fullstack Programming"
+  },
+  "footer": {
+    "street": "112 Cao Thang",
+    "district": "Ward 4, District 3",
+    "city": "Ho Chi Minh City",
+    "link": "Link",
+    "home": "Home",
+    "sub": "Subscribe",
+    "sub1": "Please register to receive the latest courses."
+  },
+  "contact": {
+    "contactUs": "Contact us!",
+    "add": "Address",
+    "add-sub": "112 Cao Thang, Ward 4, District 3, Ho Chi Minh City",
+    "phone": "Phone",
+    "msg": "Send message",
+    "name": "Your name",
+    "email": "Your email",
+    "title": "Title",
+    "mess": "Message",
+    "nameNotBlank": "Full name is not blank!",
+    "emailNotBlank": "Email is not blank!",
+    "titleNotBlank": "Title is not blank!",
+    "messNotBlank": "Message is not blank!"
+  },
+  "info": {
+    "part1": "E-learning is fun",
+    "part2": "Let's explore new things together",
+    "part3": "Learning goes hand in hand with practice",
+    "part4": "E-learning ?",
+    "part5": "Where knowledge converges",
+    "part6": "This is an online teaching and learning platform built to support educational development in the 4.0 industrial era, built on the basis of observing all the needs of an offline classroom. From there, we ensure to provide comprehensive, easy-to-use tools for teachers and students, helping to create an interesting and engaging online classroom.",
+    "part7": "E-Learning program",
+    "part8": "Top learning system",
+    "part9": "The lecturers are all graphic design experts and lecturers from prestigious universities in the city: University of IT, Natural Sciences, Polytechnic,... Fully equipped for learning, Air-conditioned classroom, LCD screen, powerful computer, each student practices on a separate computer. 100% of lessons are practical on computers. Training with the criterion: 'learn to do the job' , giving students the most useful and practical knowledge.",
+    "part10": "E-Learning Vision",
+    "part11": "Intensive programming training",
+    "part12": "Becoming the region's leading professional programming training system, providing highly skilled human resources with deep expertise for the development of the software industry in the current digital age , contributing to the development of society, making Vietnam a powerhouse in software development. Helping learners develop thinking, analysis, professional expertise, lifelong learning, ready to meet all needs. business needs.",
+    "part13": "E-Learning Mission",
+    "part14": "Modern training methods",
+    "part15": "Using advanced and modern training methods on educational technology platforms, combining traditional methods, online methods, flipped classrooms and real-life project-based learning , coordinating between an experienced training team and requests from companies and businesses. Thereby, E-Learning helps learners develop thinking, analysis, professional expertise, lifelong learning, readiness ready to meet all business needs."
+  },
+  "detail": {
+    "courseName": "Course name",
+    "field": "Field",
+    "price": "Price",
+    "students": "Number of students",
+    "reg": "Register",
+    "signInFirst": "You need to sign in first.",
+    "part1": "Chapter 1: Introduction",
+    "part2": "Chapter 2: Basic knowledge",
+    "part3": "Chapter 3: In-depth knowledge",
+    "part4": "React Component Concepts",
+    "part5": "Environment setup for Windows",
+    "part6": "Create React App - React-Scripts",
+    "part7": "Quick note about quotes for string interpolation",
+    "part8": "Home and folder components",
+    "part9": "Course Instructions + Github Link",
+    "part10": "Ecommerce homepage + SASS setup",
+    "part11": "CSS and SCSS files",
+    "part12": "React 17: Updated packages + Latest React version",
+    "part13": "connect() and mapStateToProps",
+    "part14": "Directory status into Redux",
+    "part15": "Collection Overview Components"
+  },
+  "searchPage": {
+    "find": "Search for courses",
+    "res": "result"
+  }
+}

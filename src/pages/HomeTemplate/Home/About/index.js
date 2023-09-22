@@ -1,7 +1,9 @@
 import React from "react";
 import aboutImg from "../../../../assets/images/about.webp";
+import { useTranslation } from "react-i18next";
 
 export default function About() {
+  const { t } = useTranslation();
   return (
     <section id="about" className="about">
       <div className="container" data-aos="fade-up">
@@ -14,45 +16,32 @@ export default function About() {
             <img src={aboutImg} className="img-fluid" alt="..." />
           </div>
           <div className="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-            <h3>Tại sao chọn E-Learning?</h3>
-            <p className="fst-italic py-2">
-              Học qua dự án thực tế, học đi đôi với hành, không lý thuyết lan
-              man, phân tích cội nguồn của vấn đề, xây dựng từ các ví dụ nhỏ đến
-              thực thi một dự án lớn ngoài thực tế để học viên học xong làm được
-              ngay.
-            </p>
+            <h3>{t("about.why")}</h3>
+            <p className="fst-italic py-2">{t("about.introduce")}</p>
             <ul>
               <li>
-                <i className="bi bi-check-circle" /> Lộ trình bài bản từ zero
-                tới chuyên nghiệp, nâng cao.
+                <i className="bi bi-check-circle" /> {t("about.part1")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Huấn luyện để phát triển
-                năng lực và niềm đam mê lập trình.
+                <i className="bi bi-check-circle" /> {t("about.part2")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Tự động chấm điểm trắc
-                nghiệm và đưa câu hỏi tùy theo mức độ học viên.
+                <i className="bi bi-check-circle" /> {t("about.part3")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Thống kê, so sánh khả năng
-                học của các học viên cùng level để đưa ra mục tiêu.
+                <i className="bi bi-check-circle" /> {t("about.part4")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Tương tác cùng mentor và
-                giảng viên qua phần thảo luận.
+                <i className="bi bi-check-circle" /> {t("about.part5")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Chấm bài và có thể vấn đáp
-                trực tuyến để review.
+                <i className="bi bi-check-circle" /> {t("about.part7")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Kết nối CV của bạn đến với
-                các đối tác của V learning.
+                <i className="bi bi-check-circle" /> {t("about.part7")}
               </li>
               <li>
-                <i className="bi bi-check-circle" /> Cơ hội thực tập tại các
-                công ty lớn như FPT, Microsoft.
+                <i className="bi bi-check-circle" /> {t("about.part8")}
               </li>
             </ul>
           </div>

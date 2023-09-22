@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import CountUp from "countup";
 import VisibilitySensor from "react-visibility-sensor";
+import { useTranslation } from "react-i18next";
 
 export default function Counter() {
   const [viewedOnce, setViewedOnce] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const counters = document.querySelectorAll(".purecounter");
@@ -38,7 +40,7 @@ export default function Counter() {
                 data-purecounter-duration={5}
                 className="purecounter"
               />
-              <p>Học viên</p>
+              <p>{t("counter.students")}</p>
             </div>
           </VisibilitySensor>
           <VisibilitySensor
@@ -55,7 +57,7 @@ export default function Counter() {
                 data-purecounter-duration={5}
                 className="purecounter"
               />
-              <p>Khóa học</p>
+              <p>{t("counter.courses")}</p>
             </div>
           </VisibilitySensor>
           <VisibilitySensor
@@ -72,7 +74,7 @@ export default function Counter() {
                 data-purecounter-duration={5}
                 className="purecounter"
               />
-              <p>Giờ học</p>
+              <p>{t("counter.hours")}</p>
             </div>
           </VisibilitySensor>
           <VisibilitySensor
@@ -89,7 +91,7 @@ export default function Counter() {
                 data-purecounter-duration={5}
                 className="purecounter"
               />
-              <p>Giảng viên</p>
+              <p>{t("counter.lecturers")}</p>
             </div>
           </VisibilitySensor>
         </div>

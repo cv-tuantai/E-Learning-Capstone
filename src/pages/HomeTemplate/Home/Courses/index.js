@@ -3,10 +3,12 @@ import CourseItem from "./CourseItem";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchListCourses } from "./duck/actions";
 import Loader from "../../../../components/Loader";
+import { useTranslation } from "react-i18next";
 
 export default function Courses() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.listCoursesReducer);
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(fetchListCourses());
@@ -23,8 +25,8 @@ export default function Courses() {
     <section id="popular-courses" className="courses">
       <div className="container" data-aos="fade-up">
         <div className="section-title">
-          <h2>Khóa học</h2>
-          <p>Khóa học nổi bật</p>
+          <h2>{t("courses.courses")}</h2>
+          <p>{t("courses.highlight")}</p>
         </div>
         <div className="row" data-aos="zoom-in" data-aos-delay={100}>
           {renderCourses()}

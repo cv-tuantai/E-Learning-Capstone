@@ -114,5 +114,10 @@
   "searchPage": {
     "find": "Search for courses",
     "res": "result"
+  },
+  "registerCourse": {
+    "success": "Success",
+    "successText": "Successful course registration",
+    "failure": "Failure"
   }
 }

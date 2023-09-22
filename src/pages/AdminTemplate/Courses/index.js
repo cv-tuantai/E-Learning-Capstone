@@ -18,10 +18,12 @@ import { getUsersUnreg } from "./RegModalCourse/duck/UsersUnreg/actions";
 import { getUsersWaitConfirm } from "./RegModalCourse/duck/UsersWaitConfirm/actions";
 import { getUsersConfirmed } from "./RegModalCourse/duck/UsersConfirmed/actions";
 import CourseModal from "./CourseModal";
+import { useTranslation } from "react-i18next";
 
 export default function Courses() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.listCoursesReducer);
+  const { t } = useTranslation("adminTemplate");
 
   const [dataCourse, setDataCourse] = useState(null);
 
@@ -39,19 +41,19 @@ export default function Courses() {
 
   const columns = [
     {
-      title: "Mã khóa học",
+      title: t("courses.code"),
       dataIndex: "maKhoaHoc",
       sorter: (a, b) => a.maKhoaHoc - b.maKhoaHoc,
       sortDirections: ["descend"],
       width: "15%",
     },
     {
-      title: "Tên khóa học",
+      title: t("courses.name"),
       dataIndex: "tenKhoaHoc",
       width: "20%",
     },
     {
-      title: "Hình ảnh",
+      title: t("courses.img"),
       dataIndex: "hinhAnh",
       render: (text, img) => (
         <img src={img.hinhAnh} alt={img.maPhim} width={200} />
@@ -59,17 +61,17 @@ export default function Courses() {
       width: "20%",
     },
     {
-      title: "Lượt xem",
+      title: t("courses.view"),
       dataIndex: "luotXem",
       width: "10%",
     },
     {
-      title: "Người tạo",
+      title: t("courses.creator"),
       dataIndex: ["nguoiTao", "hoTen"],
       width: "15%",
     },
     {
-      title: "Tác vụ",
+      title: t("courses.action"),
       render: (text, course) => {
         return (
           <>
@@ -94,12 +96,12 @@ export default function Courses() {
               onClick={() => {
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: `Bạn có chắc chắn xóa khóa học ${course.tenKhoaHoc}`,
+                  title: t("courses.confirm"),
+                  text: `t('courses.confirmDel') ${course.tenKhoaHoc}`,
                   showCancelButton: true,
                   showConfirmButton: true,
-                  cancelButtonText: "Hủy bỏ",
-                  confirmButtonText: "Xác nhận",
+                  cancelButtonText: t("courses.cancel"),
+                  confirmButtonText: t("courses.confirm"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     dispatch(deleteCourse(course.maKhoaHoc));
@@ -135,7 +137,7 @@ export default function Courses() {
 
   return (
     <div>
-      <h2 className="text-center">Quản lý khóa học</h2>
+      <h2 className="text-center">{t("courses.courseManagement")}</h2>
       <Button
         type="primary"
         danger
@@ -146,7 +148,7 @@ export default function Courses() {
           handleDataCourse(null);
         }}
       >
-        Thêm khóa học
+        {t("courses.addCourse")}
       </Button>
       <Table
         columns={columns}

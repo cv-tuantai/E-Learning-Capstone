@@ -11,6 +11,9 @@ import { actLogout } from "../../UserTemplate/Login/duck/actions";
 import logoCyber from "../../../assets/images/logoCyber.png";
 import { fetchListCourses } from "../../HomeTemplate/Home/Courses/duck/actions";
 import { getListUsers } from "../Users/duck/ListUsers/actions";
+import flagEn from "../../../assets/images/united-kingdom.png";
+import flagVn from "../../../assets/images/vietnam.png";
+import { useTranslation } from "react-i18next";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Search } = Input;
@@ -24,33 +27,22 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const items = [
-  getItem(
-    <Link to="/admin/courses">Quản lý khóa học</Link>,
-    "1",
-    <PlayCircleOutlined />,
-  ),
-  getItem(
-    <Link to="/admin/users">Quản lý người dùng</Link>,
-    "2",
-    <PlusCircleOutlined />,
-  ),
-  getItem(<Link to="/">Về trang chủ</Link>, "3", <HomeOutlined />),
-];
 const Dashboard = () => {
   const [collapsed, setCollapsed] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [flag, setFlag] = useState(localStorage.getItem("flag") || flagVn);
+  const { t, i18n } = useTranslation("adminTemplate");
 
   const user = JSON.parse(localStorage.getItem("user"));
 
   if (!user) {
-    alert("Bạn cần phải đăng nhập trước.");
+    alert(t("dashboard.needLogin"));
     return <Navigate replace to="/login" />;
   }
 
   if (user.maLoaiNguoiDung !== "GV") {
-    alert('Bạn không có quyền "Quản Trị" để truy cập trang này.');
+    alert(t("dashboard.permission"));
     return <Navigate replace to="/" />;
   }
 
@@ -64,6 +56,66 @@ const Dashboard = () => {
     } else if (pathname === "/admin/users") {
       dispatch(getListUsers(value));
     }
+  };
+
+  const items = [
+    getItem(
+      <Link to="/admin/courses">{t("dashboard.courseManagement")}</Link>,
+      "1",
+      <PlayCircleOutlined />,
+    ),
+    getItem(
+      <Link to="/admin/users">{t("dashboard.userManagement")}</Link>,
+      "2",
+      <PlusCircleOutlined />,
+    ),
+    getItem(<Link to="/">{t("dashboard.home")}</Link>, "3", <HomeOutlined />),
+  ];
+
+  const renderSwitchButton = () => {
+    return (
+      <div className="dropdown">
+        <span
+          className="dropdown-toggle"
+          id="DropdownSwitchLng"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <img src={flag} width={30} alt="..." />
+        </span>
+        <ul className="dropdown-menu" aria-labelledby="DropdownSwitchLng">
+          <li>
+            <button
+              className="dropdown-item"
+              style={{ lineHeight: "25px" }}
+              onClick={() => {
+                i18n.changeLanguage("vi");
+                setFlag(flagVn);
+                localStorage.setItem("flag", flagVn);
+                localStorage.setItem("lng", "vi");
+              }}
+            >
+              <img src={flagVn} width={30} alt="..." /> Tiếng Việt
+            </button>
+          </li>
+          <li>
+            <button
+              className="dropdown-item"
+              style={{ lineHeight: "25px" }}
+              onClick={() => {
+                i18n.changeLanguage("en");
+                setFlag(flagEn);
+                localStorage.setItem("flag", flagEn);
+                localStorage.setItem("lng", "en");
+              }}
+            >
+              <img src={flagEn} width={30} alt="..." /> English
+            </button>
+          </li>
+        </ul>
+      </div>
+    );
   };
 
   return (
@@ -100,9 +152,11 @@ const Dashboard = () => {
         >
           {isVisible && (
             <Search
-              placeholder={`Nhập tên ${
-                pathname === "/admin/courses" ? "khóa học" : "người dùng"
-              } để tìm kiếm`}
+              placeholder={`${
+                pathname === "/admin/courses"
+                  ? t("dashboard.findCourse")
+                  : t("dashboard.findUser")
+              }`}
               allowClear
               onSearch={onSearch}
               style={{
@@ -110,7 +164,7 @@ const Dashboard = () => {
               }}
             />
           )}
-          <div className="btn-group ms-auto">
+          <div className="btn-group ms-auto me-2">
             <button
               type="button"
               className="btn btn-success dropdown-toggle"
@@ -126,7 +180,7 @@ const Dashboard = () => {
                   style={{ fontSize: 15 }}
                   to="/user/profile"
                 >
-                  Thông tin tài khoản
+                  {t("dashboard.userInfo")}
                 </Link>
               </li>
               <li>
@@ -138,11 +192,12 @@ const Dashboard = () => {
                   style={{ fontSize: 15 }}
                   onClick={() => dispatch(actLogout(navigate))}
                 >
-                  Đăng xuất
+                  {t("dashboard.signOut")}
                 </button>
               </li>
             </ul>
           </div>
+          {renderSwitchButton()}
         </Header>
         <Content
           style={{

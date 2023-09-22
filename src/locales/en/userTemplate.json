@@ -1,0 +1,69 @@
+{
+  "login": {
+    "title": "Sign in to your account",
+    "acc": "Account",
+    "accInput": "Enter your account",
+    "pass": "Password",
+    "passInput": "Enter your password",
+    "signIn": "Sign in",
+    "forgetPass": "Forgot password?",
+    "noAcc": "No account yet?",
+    "signUp": "Sign Up",
+    "home": "Home",
+    "accNotBlank": "* Account cannot be blank!",
+    "passNotBlank": "* Password cannot be blank!",
+    "success": "Log in successfully!",
+    "failure": "Login failed!"
+  },
+  "profile": {
+    "accTooShort": "* Account too short",
+    "accNoMore20": "* Account must not exceed 20 characters",
+    "accNotBlank": "* Account cannot be blank!",
+    "passNotBlank": "* Password cannot be blank!",
+    "special": "* Password must be at least 8 characters including letters, numbers, and special characters.",
+    "nameNotBlank": "* Full name cannot be blank!",
+    "character": "* Only enter text characters.",
+    "numberNotBlank": "* Phone number cannot be blank!",
+    "numberFormat": "* The phone number is not in the correct format.",
+    "emailNotBlank": "* Email cannot be blank!",
+    "emailFormat": "* Email is not in the correct format.",
+    "confirm": "Confirm",
+    "confirmCancel": "Are you sure you want to cancel your subscription?",
+    "confirmButton": "Agree",
+    "cancelButton": "Cancel",
+    "cancelReg": "Cancel registration",
+    "student": "Student",
+    "teacher": "Teacher",
+    "backToHome": "Return to home page",
+    "goAdminPage": "Go to the admin page",
+    "confirmUpdate": "Are you sure your information is up to date?",
+    "name": "Full name",
+    "phone": "Phone number",
+    "saveChange": "Save changes",
+    "courses": "Courses",
+    "skill": "Skill",
+    "findCourse": "Find Courses"
+  },
+  "signup": {
+    "nameInput": "Enter your name",
+    "phoneNumber": "Phone number",
+    "phoneInput": "Enter your phone number",
+    "emailInput": "Enter your email",
+    "agree": "I agree to all the statements in",
+    "terms": "Terms of service",
+    "alreadyHaveAcc": "Already have an account?",
+    "success": "Success",
+    "successText": "Account registration successful",
+    "failure": "Failure"
+  },
+  "cancelCourse": {
+    "success": "Success",
+    "successText": "Successfully unsubscribed from the course",
+    "failure": "Failed"
+  },
+  "update": {
+    "success": "Success",
+    "successText": "User information updated successfully",
+    "failure": "Failure"
+  }
+}

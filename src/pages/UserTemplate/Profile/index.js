@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { Rate } from "antd";
 import { cancelCourse } from "./duck/CancelCourse/actions";
 import { Input } from "antd";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 
@@ -18,6 +19,7 @@ export default function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { data } = useSelector((state) => state.userReducer);
+  const { t } = useTranslation("userTemplate");
 
   const [keyword, setKeyword] = useState("");
 
@@ -36,34 +38,34 @@ export default function Profile() {
   const validationSchema = yup.object().shape({
     taiKhoan: yup
       .string()
-      .min(2, "* Tài khoản quá ngắn")
-      .max(20, "* Tài khoản không quá 20 ký tự")
-      .required("* Tài khoản không được bỏ trống!"),
+      .min(2, t("profile.accTooShort"))
+      .max(20, t("profile.accNoMore20"))
+      .required(t("profile.accNotBlank")),
     matKhau: yup
       .string()
-      .required("* Mật khẩu không được bỏ trống!")
+      .required(t("profile.passNotBlank"))
       .matches(
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        "* Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt.",
+        t("profile.special"),
       ),
     hoTen: yup
       .string()
-      .required("* Họ tên không được bỏ trống!")
+      .required(t("profile.nameNotBlank"))
       .matches(
         /^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
-        "* Chỉ nhập kí tự chữ.",
+        t("profile.character"),
       ),
     soDT: yup
       .string()
-      .required("* Số điện thoại không được bỏ trống!")
+      .required(t("profile.numberNotBlank"))
       .matches(
         /([\+84|84|0]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/,
-        "* Số điện thoại chưa đúng định đạng.",
+        t("profile.numberFormat"),
       ),
     email: yup
       .string()
-      .required("* Email không được bỏ trống!")
-      .email("* Email không đúng định dạng."),
+      .required(t("profile.emailNotBlank"))
+      .email(t("profile.emailFormat")),
   });
 
   const renderCourses = () => {
@@ -104,25 +106,28 @@ export default function Profile() {
                 onClick={() => {
                   Swal.fire({
                     icon: "question",
-                    title: "Xác nhận",
-                    text: "Bạn có chắc chắn muốn hủy đăng ký",
+                    title: t("profile.confirm"),
+                    text: t("profile.confirmCancel"),
                     showCancelButton: true,
                     showConfirmButton: true,
-                    confirmButtonText: "Đồng ý",
-                    cancelButtonText: "Hủy bỏ",
+                    confirmButtonText: t("profile.confirmButton"),
+                    cancelButtonText: t("profile.cancelButton"),
                   }).then((result) => {
                     if (result.isConfirmed) {
                       dispatch(
-                        cancelCourse({
-                          maKhoaHoc: course.maKhoaHoc,
-                          taiKhoan: data.taiKhoan,
-                        }),
+                        cancelCourse(
+                          {
+                            maKhoaHoc: course.maKhoaHoc,
+                            taiKhoan: data.taiKhoan,
+                          },
+                          t,
+                        ),
                       );
                     }
                   });
                 }}
               >
-                Hủy đăng ký
+                {t("profile.cancelReg")}
               </button>
             </div>
           </div>
@@ -136,7 +141,10 @@ export default function Profile() {
   };
 
   return (
-    <div className="container py-4">
+    <div
+      className="container"
+      style={{ paddingTop: "85px", paddingBottom: "30px" }}
+    >
       <div className="main-body">
         <div className="row">
           <div className="col-lg-4">
@@ -152,19 +160,21 @@ export default function Profile() {
                   <div className="mt-3">
                     <h4>{data?.hoTen}</h4>
                     <p className="text-secondary mb-1">
-                      {data?.maLoaiNguoiDung === "HV" ? "Học viên" : "Giáo vụ"}
+                      {data?.maLoaiNguoiDung === "HV"
+                        ? t("profile.student")
+                        : t("profile.teacher")}
                     </p>
                   </div>
                   <div className="d-flex">
                     <Link to="/">
                       <button className="btn btn-warning mt-3">
-                        Quay lại trang chủ
+                        {t("profile.backToHome")}
                       </button>
                     </Link>
                     {data?.maLoaiNguoiDung === "GV" && (
                       <Link to="/admin/courses">
                         <button className="btn btn-info mt-3 ms-1">
-                          Vào trang quản trị
+                          {t("profile.goAdminPage")}
                         </button>
                       </Link>
                     )}
@@ -291,15 +301,15 @@ export default function Profile() {
                   onSubmit={(values) => {
                     Swal.fire({
                       icon: "question",
-                      title: "Xác nhận",
-                      text: "Bạn chắc chắn cập nhật thông tin?",
+                      title: t("profile.confirm"),
+                      text: t("profile.confirmUpdate"),
                       showConfirmButton: true,
                       showCancelButton: true,
-                      confirmButtonText: "Đồng ý",
-                      cancelButtonText: "Hủy bỏ",
+                      confirmButtonText: t("profile.confirmButton"),
+                      cancelButtonText: t("profile.cancelButton"),
                     }).then((result) => {
                       if (result.isConfirmed) {
-                        dispatch(updateUser(values));
+                        dispatch(updateUser(values, t));
                       }
                     });
                   }}
@@ -308,7 +318,7 @@ export default function Profile() {
                     <Form>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Tài khoản</h6>
+                          <h6 className="mb-0">{t("login.acc")}</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <Field
@@ -326,7 +336,7 @@ export default function Profile() {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Mật khẩu</h6>
+                          <h6 className="mb-0">{t("login.pass")}</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <Field
@@ -343,7 +353,7 @@ export default function Profile() {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Họ tên</h6>
+                          <h6 className="mb-0">{t("profile.name")}</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <Field
@@ -360,7 +370,7 @@ export default function Profile() {
                       </div>
                       <div className="row mb-3">
                         <div className="col-sm-3">
-                          <h6 className="mb-0">Số điện thoại</h6>
+                          <h6 className="mb-0">{t("profile.phone")}</h6>
                         </div>
                         <div className="col-sm-9 text-secondary">
                           <Field
@@ -399,7 +409,7 @@ export default function Profile() {
                             type="submit"
                             className="btn btn-success px-4"
                           >
-                            Lưu thay đổi
+                            {t("profile.saveChange")}
                           </button>
                         </div>
                       </div>
@@ -423,7 +433,7 @@ export default function Profile() {
                           aria-controls="ex1-tabs-1"
                           aria-selected="true"
                         >
-                          Khóa học
+                          {t("profile.courses")}
                         </a>
                       </li>
                       <li className="nav-item" role="presentation">
@@ -436,7 +446,7 @@ export default function Profile() {
                           aria-controls="ex1-tabs-2"
                           aria-selected="false"
                         >
-                          Kỹ năng
+                          {t("profile.skill")}
                         </a>
                       </li>
                     </ul>
@@ -451,7 +461,7 @@ export default function Profile() {
                           style={{ textAlign: "right", paddingBottom: "15px" }}
                         >
                           <Search
-                            placeholder="Tìm khóa học"
+                            placeholder={t("profile.findCourse")}
                             onChange={handleSearchCourse}
                             className="text-right"
                             style={{

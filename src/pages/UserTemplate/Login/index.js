@@ -6,14 +6,16 @@ import * as yup from "yup";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import { actLogin } from "./duck/actions";
+import { useTranslation } from "react-i18next";
 
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation("userTemplate");
 
   const LoginSchema = yup.object().shape({
-    taiKhoan: yup.string().required("* Tài khoản không được bỏ trống!"),
-    matKhau: yup.string().required("* Mật khẩu không được bỏ trống!"),
+    taiKhoan: yup.string().required(t("login.accNotBlank")),
+    matKhau: yup.string().required(t("login.passNotBlank")),
   });
 
   if (localStorage.getItem("user")) {
@@ -48,7 +50,7 @@ export default function Login() {
                       }}
                       validationSchema={LoginSchema}
                       onSubmit={(values) => {
-                        dispatch(actLogin(values, navigate));
+                        dispatch(actLogin(values, navigate, t));
                       }}
                     >
                       {() => (
@@ -64,16 +66,18 @@ export default function Login() {
                             className="fw-normal mb-3 pb-3"
                             style={{ letterSpacing: 1 }}
                           >
-                            Đăng nhập vào tài khoản của bạn
+                            {t("login.title")}
                           </h5>
                           <div className="form-outline mb-4">
-                            <label className="form-label">Tài khoản</label>
+                            <label className="form-label">
+                              {t("login.acc")}
+                            </label>
                             <Field
                               type="text"
                               name="taiKhoan"
                               className="form-control form-control-lg"
                               style={{ fontSize: 15 }}
-                              placeholder="Nhập tài khoản của bạn"
+                              placeholder={t("login.accInput")}
                             />
                             <ErrorMessage
                               component="div"
@@ -82,13 +86,15 @@ export default function Login() {
                             />
                           </div>
                           <div className="form-outline mb-4">
-                            <label className="form-label">Mật khẩu</label>
+                            <label className="form-label">
+                              {t("login.pass")}
+                            </label>
                             <Field
                               type="password"
                               name="matKhau"
                               className="form-control form-control-lg"
                               style={{ fontSize: 15 }}
-                              placeholder="Nhập mật khẩu của bạn"
+                              placeholder={t("login.passInput")}
                             />
                             <ErrorMessage
                               component="div"
@@ -102,27 +108,29 @@ export default function Login() {
                               style={{ width: "100%" }}
                               type="submit"
                             >
-                              Đăng nhập
+                              {t("login.signIn")}
                             </button>
                           </div>
                           <div className="text-center">
                             <a className="small text-muted" href="#!">
-                              Quên mật khẩu?
+                              {t("login.forgetPass")}
                             </a>
                           </div>
                           <p
                             className="my-4 pb-lg-2 text-center"
                             style={{ color: "#393f81" }}
                           >
-                            Chưa có tài khoản?{" "}
+                            {t("login.noAcc")}{" "}
                             <Link
                               to="/user/register"
                               style={{ color: "#393f81" }}
                             >
-                              <span className="text-danger">Đăng ký</span>
+                              <span className="text-danger">
+                                {t("login.signUp")}
+                              </span>
                             </Link>
                             {" - "}
-                            <Link to="/">Trang chủ</Link>
+                            <Link to="/">{t("login.home")}</Link>
                           </p>
                         </Form>
                       )}

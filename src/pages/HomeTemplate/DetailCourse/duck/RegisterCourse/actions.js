@@ -2,7 +2,7 @@ import * as actionTypes from "./constants";
 import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 
-export const registerCourse = (data) => {
+export const registerCourse = (data, t) => {
   return (dispatch) => {
     dispatch(actRegisterCourseRequest());
 
@@ -12,15 +12,15 @@ export const registerCourse = (data) => {
         dispatch(actRegisterCourseSuccess(result.data));
         Swal.fire({
           icon: "success",
-          title: "Thành công",
-          text: "Đăng ký khóa học thành công",
+          title: t("registerCourse.success"),
+          text: t("registerCourse.successText"),
         });
       })
       .catch((error) => {
         dispatch(actRegisterCourseFail(error));
         Swal.fire({
           icon: "error",
-          title: "Thất bại",
+          title: t("registerCourse.failure"),
           text: error.response?.data,
         });
       });

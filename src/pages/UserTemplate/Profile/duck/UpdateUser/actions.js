@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { getUserDetail } from "../UserDetail/actions";
 import { getListUsers } from "../../../../AdminTemplate/Users/duck/ListUsers/actions";
 
-export const updateUser = (data) => {
+export const updateUser = (data, t) => {
   return (dispatch) => {
     dispatch(updateUserRequest());
 
@@ -14,8 +14,8 @@ export const updateUser = (data) => {
         dispatch(updateUserSuccess(result.data));
         Swal.fire({
           icon: "success",
-          title: "Thành công",
-          text: "Cập nhật thông tin người dùng thành công",
+          title: t("update.success"),
+          text: t("update.successText"),
         }).then(() => {
           const closeButton = document.querySelector(".btn-close");
           // sau Swal, đóng modal rồi mới getListUsers để tránh lỗi giao diện
@@ -33,8 +33,8 @@ export const updateUser = (data) => {
         dispatch(updateUserFail(error));
         Swal.fire({
           icon: "error",
-          title: error.response?.data,
-          text: "Cập nhật thông tin người dùng thât bại",
+          title: t("update.failure"),
+          text: error.response?.data,
         });
       });
   };

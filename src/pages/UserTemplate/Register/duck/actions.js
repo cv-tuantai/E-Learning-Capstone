@@ -2,7 +2,7 @@ import * as actionTypes from "./constants";
 import api from "../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 
-export const actRegister = (data, navigate) => {
+export const actRegister = (data, navigate, t) => {
   return (dispatch) => {
     dispatch(actRegisterRequest());
 
@@ -12,7 +12,8 @@ export const actRegister = (data, navigate) => {
         dispatch(actRegisterSuccess(result.data));
         Swal.fire({
           icon: "success",
-          title: "Đăng ký thành công",
+          title: t("signup.success"),
+          text: t("signup.successText"),
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
@@ -23,7 +24,7 @@ export const actRegister = (data, navigate) => {
         dispatch(actRegisterFail(error));
         Swal.fire({
           icon: "error",
-          title: "Đăng ký thất bại!",
+          title: t("signup.failure"),
           text: error.response?.data,
           showConfirmButton: false,
           timer: 1500,

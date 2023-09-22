@@ -114,5 +114,10 @@
   "searchPage": {
     "find": "Tìm kiếm khóa học",
     "res": "kết quả"
+  },
+  "registerCourse": {
+    "success": "Thành công",
+    "successText": "Đăng ký khóa học thành công",
+    "failure": "Thất bại"
   }
 }

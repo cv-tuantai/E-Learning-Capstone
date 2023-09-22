@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 
 const TIME_EXPIRE = 60 * 60 * 1000;
 
-export const actLogin = (data, navigate) => {
+export const actLogin = (data, navigate, t) => {
   return (dispatch) => {
     dispatch(actLoginRequest());
 
@@ -22,7 +22,7 @@ export const actLogin = (data, navigate) => {
 
         Swal.fire({
           icon: "success",
-          title: "Đăng nhập thành công!",
+          title: t("login.success"),
           showConfirmButton: false,
           timer: 1500,
         }).then(() => navigate("/", { replace: true }));
@@ -31,7 +31,7 @@ export const actLogin = (data, navigate) => {
         dispatch(actLoginFail(error));
         Swal.fire({
           icon: "error",
-          title: "Đăng nhập thất bại!",
+          title: t("login.failure"),
           text: error.response?.data,
           showConfirmButton: false,
           timer: 1500,

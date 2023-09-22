@@ -71,7 +71,7 @@ export default function DetailCourse() {
                           .taiKhoan,
                         maKhoaHoc,
                       };
-                      dispatch(registerCourse(regInfo));
+                      dispatch(registerCourse(regInfo, t));
                     } else {
                       alert(t("detail.signInFirst"));
                       navigate("/user/login", { replace: true });

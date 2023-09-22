@@ -9,11 +9,13 @@ import {
 } from "../duck/UpdateCourse/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 export default function CourseModal(props) {
   const { dataCourse } = props;
   const dispatch = useDispatch();
   const [thumb, setThumb] = useState("");
+  const { t } = useTranslation("adminTemplate");
 
   const courseCate = useSelector((state) => state.courseCategoryReducer.data);
   const listUser = useSelector((state) => state.listUserReducer.data);
@@ -46,31 +48,29 @@ export default function CourseModal(props) {
   const courseSchema = yup.object().shape({
     maKhoaHoc: yup
       .string()
-      .min(2, "* Mã khóa học quá ngắn")
-      .max(20, "* Mã khóa học không quá 20 ký tự")
-      .required("* Mã khóa học không được bỏ trống!"),
-    tenKhoaHoc: yup.string().required("* Tên khóa học không được bỏ trống!"),
-    maDanhMucKhoaHoc: yup.string().required("* Danh mục không được bỏ trống!"),
+      .min(2, t("modal.codeTooShort"))
+      .max(20, t("modal.noMore20char"))
+      .required(t("modal.codeNotBlank")),
+    tenKhoaHoc: yup.string().required(t("modal.courseNameNotBlank")),
+    maDanhMucKhoaHoc: yup.string().required(t("modal.cateNotBlank")),
     ngayTao: yup
       .string()
-      .required("* Ngày tạo không được bỏ trống!")
+      .required(t("modal.dateNotBlank"))
       .matches(
         /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]|(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2]|(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)(?:0?2|(?:Feb))\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9]|(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,
-        "* Vui lòng nhập đúng định dạng DD/MM/YYYY",
+        t("modal.format"),
       ),
     danhGia: yup
       .number()
-      .required("* Đánh giá không được bỏ trống!")
-      .min(0, "* Đánh giá thấp nhất là 0")
-      .max(5, "* Đánh giá cao nhất là 5"),
+      .required(t("modal.review"))
+      .min(0, t("modal.lowestRate"))
+      .max(5, t("modal.highestRate")),
     luotXem: yup
       .number()
-      .required("* Lượt xem không được bỏ trống!")
-      .min(0, "* Lượt xem thấp nhất là 0"),
-    taiKhoanNguoiTao: yup
-      .string()
-      .required('* Người tạo không được bỏ trống!"'),
-    moTa: yup.string().required('* Mô tả không được bỏ trống!"'),
+      .required(t("modal.viewNotBlank"))
+      .min(0, t("modal.lowestView")),
+    taiKhoanNguoiTao: yup.string().required(t("modal.creatorNotBlank")),
+    moTa: yup.string().required(t("modal.descNotBlank")),
   });
 
   return (
@@ -87,14 +87,13 @@ export default function CourseModal(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="staticBackdropLabel">
-              {dataCourse ? "Cập nhật khóa học" : "Thêm khóa học"}
+              {dataCourse ? t("modal.updateCourse") : t("modal.addCourse")}
             </h5>
             <button
               type="button"
               className="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
-              //   onClick={() => dispatch(fetchListCourses())}
             />
           </div>
           <div className="modal-body">
@@ -121,12 +120,12 @@ export default function CourseModal(props) {
               onSubmit={(values) => {
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: "Bạn chắc chắn thực hiện?",
+                  title: t("courses.confirm"),
+                  text: t("modal.confirmText"),
                   showConfirmButton: true,
                   showCancelButton: true,
-                  confirmButtonText: "Đồng ý",
-                  cancelButtonText: "Hủy bỏ",
+                  confirmButtonText: t("modal.agree"),
+                  cancelButtonText: t("modal.cancel"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     //Tạo formData
@@ -158,7 +157,9 @@ export default function CourseModal(props) {
                 <Form className="mx-1 mx-md-4">
                   <div className="row justify-content-around">
                     <div className="col-5">
-                      <label className="form-label ms-5">Mã khóa học</label>
+                      <label className="form-label ms-5">
+                        {t("modal.courseCode")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa-solid fa-book fa-lg me-3 fa-fw" />
                         <div className="form-outline flex-fill mb-0">
@@ -166,7 +167,7 @@ export default function CourseModal(props) {
                             type="text"
                             name="maKhoaHoc"
                             className="form-control"
-                            placeholder="Nhập khóa học"
+                            placeholder={t("modal.codeInput")}
                             style={{ fontSize: 15 }}
                             disabled={dataCourse}
                           />
@@ -180,7 +181,9 @@ export default function CourseModal(props) {
                     </div>
 
                     <div className="col-5">
-                      <label className="form-label ms-5">Tên khóa học</label>
+                      <label className="form-label ms-5">
+                        {t("modal.courseName")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-key fa-lg me-3 fa-fw" />
                         <div className="form-outline flex-fill mb-0">
@@ -188,7 +191,7 @@ export default function CourseModal(props) {
                             type="text"
                             name="tenKhoaHoc"
                             className="form-control"
-                            placeholder="Nhập tên khóa học"
+                            placeholder={t("modal.courseInput")}
                             style={{ fontSize: 15 }}
                           />
                           <ErrorMessage
@@ -202,7 +205,7 @@ export default function CourseModal(props) {
 
                     <div className="col-5">
                       <label className="form-label ms-5">
-                        Danh mục khóa học
+                        {t("modal.Categories")}
                       </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa fa-briefcase fa-lg me-3 fa-fw" />
@@ -222,7 +225,7 @@ export default function CourseModal(props) {
                             >
                               {dataCourse
                                 ? dataCourse.danhMucKhoaHoc.tenDanhMucKhoaHoc
-                                : "Chọn danh mục"}
+                                : t("modal.selectCate")}
                             </option>
                             {renderCourseCate()}
                           </Field>
@@ -236,13 +239,16 @@ export default function CourseModal(props) {
                     </div>
 
                     <div className="col-5">
-                      <label className="form-label ms-5">Ngày tạo</label>
+                      <label className="form-label ms-5">
+                        {t("modal.dateCreate")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa-solid fa-calendar-days fa-lg me-3 fa-fw"></i>
                         <div className="form-outline flex-fill mb-0">
                           <Field
                             type="text"
                             name="ngayTao"
+                            placeholder="DD/MM/YYYY"
                             className="form-control"
                             style={{ fontSize: 15 }}
                           />
@@ -256,7 +262,9 @@ export default function CourseModal(props) {
                     </div>
 
                     <div className="col-5">
-                      <label className="form-label ms-5">Đánh giá</label>
+                      <label className="form-label ms-5">
+                        {t("modal.evaluate")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fas fa-envelope fa-lg me-3 fa-fw" />
                         <div className="form-outline flex-fill mb-0">
@@ -264,7 +272,7 @@ export default function CourseModal(props) {
                             type="number"
                             name="danhGia"
                             className="form-control"
-                            placeholder="Nhập đánh giá từ 0 đến 5"
+                            placeholder={t("modal.rateInput")}
                             style={{ fontSize: 15 }}
                           />
                           <ErrorMessage
@@ -277,7 +285,9 @@ export default function CourseModal(props) {
                     </div>
 
                     <div className="col-5">
-                      <label className="form-label ms-5">Lượt xem</label>
+                      <label className="form-label ms-5">
+                        {t("modal.view")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa-solid fa-eye fa-lg me-3 fa-fw" />
                         <div className="form-outline flex-fill mb-0">
@@ -285,7 +295,7 @@ export default function CourseModal(props) {
                             type="number"
                             name="luotXem"
                             className="form-control"
-                            placeholder="Nhập lượt xem"
+                            placeholder={t("modal.viewInput")}
                             style={{ fontSize: 15 }}
                           />
                           <ErrorMessage
@@ -298,7 +308,9 @@ export default function CourseModal(props) {
                     </div>
 
                     <div className="col-5">
-                      <label className="form-label ms-5">Người tạo</label>
+                      <label className="form-label ms-5">
+                        {t("modal.creator")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa fa-briefcase fa-lg me-3 fa-fw" />
                         <div className="form-outline flex-fill mb-0">
@@ -331,7 +343,9 @@ export default function CourseModal(props) {
                     </div>
 
                     <div className="col-5">
-                      <label className="form-label ms-5">Hình ảnh</label>
+                      <label className="form-label ms-5">
+                        {t("modal.img")}
+                      </label>
                       <div className="d-flex flex-row align-items-center mb-4">
                         <i className="fa-solid fa-image fa-lg me-3 fa-fw" />
                         <div className="form-outline flex-fill mb-0">
@@ -376,7 +390,7 @@ export default function CourseModal(props) {
                             as="textarea"
                             name="moTa"
                             className="form-control"
-                            placeholder="Nhập mô tả"
+                            placeholder={t("modal.descInput")}
                             style={{ height: 150 }}
                           />
                           <ErrorMessage
@@ -391,7 +405,7 @@ export default function CourseModal(props) {
 
                   <div className="modal-footer">
                     <button type="submit" className="btn btn-success">
-                      {dataCourse ? "Cập nhật" : "Thêm"}
+                      {dataCourse ? t("modal.update") : t("modal.add")}
                     </button>
                   </div>
                 </Form>

@@ -3,7 +3,7 @@ import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 import { getUserDetail } from "../UserDetail/actions";
 
-export const cancelCourse = (data) => {
+export const cancelCourse = (data, t) => {
   return (dispatch) => {
     dispatch(actCancelCourseRequest());
 
@@ -12,11 +12,15 @@ export const cancelCourse = (data) => {
       .then((result) => {
         dispatch(actCancelCourseSuccess(result.data));
         dispatch(getUserDetail());
-        Swal.fire("Thành công", "Hủy đăng ký khóa học thành công", "success");
+        Swal.fire(
+          t("cancelCourse.success"),
+          t("cancelCourse.successText"),
+          "success",
+        );
       })
       .catch((error) => {
         dispatch(actCancelCourseFail(error));
-        Swal.fire("Thất bại", error.response?.data, "error");
+        Swal.fire(t("cancelCourse.failure"), error.response?.data, "error");
       });
   };
 };

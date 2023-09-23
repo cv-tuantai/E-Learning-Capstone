@@ -3,7 +3,7 @@ import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 import { getListUsers } from "../ListUsers/actions";
 
-export const addUser = (data) => {
+export const addUser = (data, t) => {
   return (dispatch) => {
     dispatch(addUserRequest());
 
@@ -13,8 +13,8 @@ export const addUser = (data) => {
         dispatch(addUserSuccess(result.data));
         Swal.fire({
           icon: "success",
-          title: "Thành công",
-          text: "Thêm người dùng thành công",
+          title: t("users.success"),
+          text: t("users.successText"),
         }).then(() => {
           const closeButton = document.querySelector(".btn-close");
           // sau Swal, đóng modal rồi mới getListUsers để tránh lỗi giao diện
@@ -30,7 +30,7 @@ export const addUser = (data) => {
         dispatch(addUserFail(error));
         Swal.fire({
           icon: "error",
-          title: "Thất bại",
+          title: t("users.failure"),
           text: error.response?.data,
         });
       });

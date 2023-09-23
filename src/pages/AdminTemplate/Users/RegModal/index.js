@@ -4,11 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { regCourseByAdmin } from "./duck/regCourseByAdmin/actions";
 import { delCourseByAdmin } from "./duck/delCourseByAdmin/actions";
 import Swal from "sweetalert2";
+import { useTranslation } from "react-i18next";
 
 export default function RegModal(props) {
   const dispatch = useDispatch();
   const [searchCourse, setSearchCourse] = useState("");
   const [courseCode, setCourseCode] = useState("");
+  const { t } = useTranslation("adminTemplate");
 
   const unRegisteredCourse = useSelector(
     (state) => state.courseUnRegReducer.data,
@@ -49,19 +51,19 @@ export default function RegModal(props) {
 
   const columns = [
     {
-      title: "STT",
+      title: t("userModal.stt"),
       key: "index",
       render: (text, record, index) => index + 1,
       width: "15%",
     },
     {
-      title: "Tên khóa học",
+      title: t("userModal.courseName"),
       dataIndex: "tenKhoaHoc",
       key: "tenKhoaHoc",
       width: "55%",
     },
     {
-      title: "Chờ xác nhận",
+      title: t("userModal.waitConfirm"),
       width: "35%",
       render: (text, course) => {
         return (
@@ -72,12 +74,12 @@ export default function RegModal(props) {
               onClick={() =>
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: "Bạn có chắc chắn ghi danh?",
+                  title: t("userModal.confirm"),
+                  text: t("userModal.regConfirm"),
                   showCancelButton: true,
                   showConfirmButton: true,
-                  cancelButtonText: "Hủy bỏ",
-                  confirmButtonText: "Đồng ý",
+                  cancelButtonText: t("userModal.cancel"),
+                  confirmButtonText: t("userModal.agree"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     dispatch(
@@ -87,13 +89,14 @@ export default function RegModal(props) {
                           maKhoaHoc: course.maKhoaHoc,
                         },
                         pathname,
+                        t,
                       ),
                     );
                   }
                 })
               }
             >
-              Xác nhận
+              {t("userModal.confirm")}
             </Button>
             <Button
               type="primary"
@@ -101,12 +104,12 @@ export default function RegModal(props) {
               onClick={() =>
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: "Bạn có chắc chắn hủy ghi danh?",
+                  title: t("userModal.confirm"),
+                  text: t("userModal.cancelConfirm"),
                   showCancelButton: true,
                   showConfirmButton: true,
-                  cancelButtonText: "Hủy bỏ",
-                  confirmButtonText: "Đồng ý",
+                  cancelButtonText: t("userModal.cancel"),
+                  confirmButtonText: t("userModal.agree"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     dispatch(
@@ -116,13 +119,14 @@ export default function RegModal(props) {
                           maKhoaHoc: course.maKhoaHoc,
                         },
                         pathname,
+                        t,
                       ),
                     );
                   }
                 })
               }
             >
-              Hủy bỏ
+              {t("userModal.cancel")}
             </Button>
           </>
         );
@@ -132,19 +136,19 @@ export default function RegModal(props) {
 
   const columnsConfirmed = [
     {
-      title: "STT",
+      title: t("userModal.stt"),
       key: "index",
       render: (text, record, index) => index + 1,
       width: "15%",
     },
     {
-      title: "Tên khóa học",
+      title: t("userModal.courseName"),
       dataIndex: "tenKhoaHoc",
       key: "tenKhoaHoc",
       width: "55%",
     },
     {
-      title: "Chờ xác nhận",
+      title: t("userModal.waitConfirm"),
       width: "35%",
       render: (text, course) => {
         return (
@@ -155,12 +159,12 @@ export default function RegModal(props) {
               onClick={() =>
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: "Bạn có chắc chắn hủy ghi danh?",
+                  title: t("userModal.confirm"),
+                  text: t("userModal.cancelConfirm"),
                   showCancelButton: true,
                   showConfirmButton: true,
-                  cancelButtonText: "Hủy bỏ",
-                  confirmButtonText: "Đồng ý",
+                  cancelButtonText: t("userModal.cancel"),
+                  confirmButtonText: t("userModal.agree"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     dispatch(
@@ -170,13 +174,14 @@ export default function RegModal(props) {
                           maKhoaHoc: course.maKhoaHoc,
                         },
                         pathname,
+                        t,
                       ),
                     );
                   }
                 })
               }
             >
-              Hủy ghi danh
+              {t("modal.cancelReg")}
             </Button>
           </>
         );
@@ -199,14 +204,17 @@ export default function RegModal(props) {
           <div className="modal-body">
             <div className="border-bottom border-secondary">
               <div className="row">
-                <h5 className="text-left my-1 col-3"> Chọn khóa học</h5>
+                <h5 className="text-left my-1 col-3">
+                  {" "}
+                  {t("userModal.selectCourse")}
+                </h5>
 
                 <form className="form-group mb-2 col-6">
                   <input
                     onChange={(e) => setSearchCourse(e.target.value)}
                     value={searchCourse}
                     data-bs-toggle="dropdown"
-                    placeholder="Nhập hoặc chọn khóa học"
+                    placeholder={t("userModal.selectCoursePlaceholder")}
                     type="text"
                     className="form-control dropdown-toggle"
                   />
@@ -230,12 +238,12 @@ export default function RegModal(props) {
                       onClick={() => {
                         Swal.fire({
                           icon: "question",
-                          title: "Xác nhận",
-                          text: "Bạn có chắc chắn ghi danh?",
+                          title: t("userModal.confirm"),
+                          text: t("userModal.regConfirm"),
                           showCancelButton: true,
                           showConfirmButton: true,
-                          cancelButtonText: "Hủy bỏ",
-                          confirmButtonText: "Đồng ý",
+                          cancelButtonText: t("userModal.cancel"),
+                          confirmButtonText: t("userModal.agree"),
                         }).then((result) => {
                           if (result.isConfirmed) {
                             dispatch(
@@ -245,6 +253,7 @@ export default function RegModal(props) {
                                   maKhoaHoc: courseCode,
                                 },
                                 pathname,
+                                t,
                               ),
                             );
                             setSearchCourse("");
@@ -252,7 +261,7 @@ export default function RegModal(props) {
                         });
                       }}
                     >
-                      Ghi danh
+                      {t("userModal.reg")}
                     </button>
                     <button
                       type="button"
@@ -267,7 +276,7 @@ export default function RegModal(props) {
           </div>
           <div className="modal-body">
             <div className="border-bottom border-secondary">
-              <h5>Khóa học chờ xác thực</h5>
+              <h5>{t("userModal.courseWaitConfirm")}</h5>
               <Table
                 dataSource={courseWaitConfirm}
                 columns={columns}
@@ -279,7 +288,7 @@ export default function RegModal(props) {
           </div>
           <div className="modal-body">
             <div className="border-bottom border-secondary">
-              <h5>Khóa học đã ghi danh</h5>
+              <h5>{t("userModal.enrolledCourse")}</h5>
               <Table
                 dataSource={courseConfirmed}
                 columns={columnsConfirmed}

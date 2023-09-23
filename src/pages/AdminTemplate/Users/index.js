@@ -15,11 +15,13 @@ import { getCourseUnReg } from "./RegModal/duck/CoursesUnReg/actions";
 import { getCourseConfirm } from "./RegModal/duck/CourseConfirmed/actions";
 import UserModal from "./UserModal";
 import RegModal from "./RegModal";
+import { useTranslation } from "react-i18next";
 
 export default function Users() {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.listUserReducer);
   const [dataUser, setDataUser] = useState(null);
+  const { t } = useTranslation("adminTemplate");
 
   useEffect(() => {
     dispatch(getListUsers());
@@ -33,17 +35,17 @@ export default function Users() {
 
   const columns = [
     {
-      title: "Tài khoản",
+      title: t("users.acc"),
       dataIndex: "taiKhoan",
       width: "15%",
     },
     {
-      title: "Loại",
+      title: t("users.type"),
       dataIndex: "maLoaiNguoiDung",
       width: "10%",
     },
     {
-      title: "Họ tên",
+      title: t("users.name"),
       dataIndex: "hoTen",
       width: "20%",
     },
@@ -53,12 +55,12 @@ export default function Users() {
       width: "20%",
     },
     {
-      title: "Số điện thoại",
+      title: t("users.phone"),
       dataIndex: "soDt",
       width: "15%",
     },
     {
-      title: "Tác vụ",
+      title: t("users.action"),
       render: (text, user) => {
         return (
           <>
@@ -81,15 +83,15 @@ export default function Users() {
               onClick={() => {
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: `Bạn có chắc chắn xóa người dùng ${user.taiKhoan}`,
+                  title: t("courses.confirm"),
+                  text: `${t("users.confirmDelUser")} ${user.taiKhoan}`,
                   showCancelButton: true,
                   showConfirmButton: true,
-                  cancelButtonText: "Hủy bỏ",
-                  confirmButtonText: "Xác nhận",
+                  cancelButtonText: t("courses.cancel"),
+                  confirmButtonText: t("modal.agree"),
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    dispatch(deleteUser(user.taiKhoan));
+                    dispatch(deleteUser(user.taiKhoan, t));
                   }
                 });
               }}
@@ -121,7 +123,7 @@ export default function Users() {
 
   return (
     <div>
-      <h2 className="text-center">Quản lý người dùng</h2>
+      <h2 className="text-center">{t("users.userManagement")}</h2>
       <Button
         type="primary"
         danger
@@ -130,7 +132,7 @@ export default function Users() {
         data-bs-target="#staticBackdrop"
         onClick={() => handleDataUser(null)}
       >
-        Thêm người dùng
+        {t("users.addUser")}
       </Button>
       <Table
         columns={columns}

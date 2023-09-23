@@ -97,14 +97,14 @@ export default function Courses() {
                 Swal.fire({
                   icon: "question",
                   title: t("courses.confirm"),
-                  text: `t('courses.confirmDel') ${course.tenKhoaHoc}`,
+                  text: `${t("courses.confirmDel")} ${course.tenKhoaHoc}`,
                   showCancelButton: true,
                   showConfirmButton: true,
                   cancelButtonText: t("courses.cancel"),
                   confirmButtonText: t("courses.confirm"),
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    dispatch(deleteCourse(course.maKhoaHoc));
+                    dispatch(deleteCourse(course.maKhoaHoc, t));
                   }
                 });
               }}

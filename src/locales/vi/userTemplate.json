@@ -65,5 +65,30 @@
     "success": "Thành công",
     "successText": "Cập nhật thông tin người dùng thành công",
     "failure": "Thất bại"
+  },
+  "users": {
+    "updateUser": "Cập nhật người dùng",
+    "addUser": "Thêm người dùng",
+    "AreYouSure": "Bạn chắc chắn thực hiện?",
+    "confirm": "Xác nhận",
+    "agree": "Đồng ý",
+    "cancel": "Hủy bỏ",
+    "accInput": "Nhập tài khoản của bạn",
+    "acc": "Tài khoản",
+    "pass": "Mật khẩu",
+    "passInput": "Nhập mật khẩu",
+    "name": "Họ tên",
+    "nameInput": "Nhập tên của bạn",
+    "phone": "Số điện thoại",
+    "phoneInput": "Nhập số điện thoại của bạn",
+    "emailInput": "Nhập email của bạn",
+    "typeUser": "Loại người dùng",
+    "student": "Học viên",
+    "teacher": "Giáo vụ",
+    "up": "Cập nhật",
+    "add": "Thêm",
+    "success": "Thành công",
+    "successText": "Thêm người dùng thành công",
+    "failure": "Thất bại"
   }
 }

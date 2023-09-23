@@ -3,7 +3,7 @@ import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 import { getListUsers } from "../ListUsers/actions";
 
-export const deleteUser = (user) => {
+export const deleteUser = (user, t) => {
   return (dispatch) => {
     dispatch(deleteUserRequest());
 
@@ -13,15 +13,15 @@ export const deleteUser = (user) => {
         dispatch(deleteUserSuccess(result.data));
         Swal.fire({
           icon: "success",
-          title: "Thành công",
-          text: "Xóa người dùng thành công",
+          title: t("userModal.success"),
+          text: t("userModal.delSuccess"),
         }).then(() => dispatch(getListUsers()));
       })
       .catch((error) => {
         dispatch(deleteUserFail(error));
         Swal.fire({
           icon: "error",
-          title: "Thất bại",
+          title: t("userModal.failure"),
           text: error.response?.data,
         });
       });

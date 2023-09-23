@@ -3,7 +3,7 @@ import api from "../../../../../utils/apiUtil";
 import Swal from "sweetalert2";
 import { fetchListCourses } from "../../../../HomeTemplate/Home/Courses/duck/actions";
 
-export const updateCourse = (formData) => {
+export const updateCourse = (formData, t) => {
   return (dispatch) => {
     dispatch(updateCourseRequest());
 
@@ -11,7 +11,7 @@ export const updateCourse = (formData) => {
       .post("QuanLyKhoaHoc/CapNhatKhoaHocUpload", formData)
       .then((result) => {
         dispatch(updateCourseSuccess(result.data));
-        Swal.fire("Thành công", "Cập nhật khóa học thành công", "success").then(
+        Swal.fire(t("modal.success"), t("modal.updateSuccess"), "success").then(
           () => {
             const closeButton = document.querySelector(".btn-close");
             // sau Swal, đóng modal rồi mới dispatch để tránh lỗi giao diện
@@ -26,12 +26,12 @@ export const updateCourse = (formData) => {
       })
       .catch((error) => {
         dispatch(updateCourseFail(error));
-        Swal.fire("Thất bại", error.response?.data, "error");
+        Swal.fire(t("modal.failure"), error.response?.data, "error");
       });
   };
 };
 
-export const updateCourseNoImage = (values) => {
+export const updateCourseNoImage = (values, t) => {
   return (dispatch) => {
     dispatch(updateCourseRequest());
 
@@ -39,7 +39,7 @@ export const updateCourseNoImage = (values) => {
       .put("QuanLyKhoaHoc/CapNhatKhoaHoc", values)
       .then((result) => {
         dispatch(updateCourseSuccess(result.data));
-        Swal.fire("Thành công", "Cập nhật khóa học thành công", "success").then(
+        Swal.fire(t("modal.success"), t("modal.updateSuccess"), "success").then(
           () => {
             const closeButton = document.querySelector(".btn-close");
             // sau Swal, đóng modal rồi mới dispatch để tránh lỗi giao diện
@@ -54,7 +54,7 @@ export const updateCourseNoImage = (values) => {
       })
       .catch((error) => {
         dispatch(updateCourseFail(error));
-        Swal.fire("Thất bại", error.response?.data, "error");
+        Swal.fire(t("modal.failure"), error.response?.data, "error");
       });
   };
 };

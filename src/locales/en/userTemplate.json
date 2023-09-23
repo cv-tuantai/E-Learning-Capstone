@@ -65,5 +65,30 @@
     "success": "Success",
     "successText": "User information updated successfully",
     "failure": "Failure"
+  },
+  "users": {
+    "updateUser": "Update user",
+    "addUser": "Add user",
+    "AreYouSure": "Are you sure?",
+    "confirm": "Confirm",
+    "agree": "Agree",
+    "cancel": "Cancel",
+    "accInput": "Enter your account",
+    "acc": "Account",
+    "pass": "Password",
+    "passInput": "Enter password",
+    "name": "Full name",
+    "nameInput": "Enter your name",
+    "phone": "Phone number",
+    "phoneInput": "Enter your phone number",
+    "emailInput": "Enter your email",
+    "typeUser": "User type",
+    "student": "Student",
+    "teacher": "Teacher",
+    "up": "Update",
+    "add": "Add",
+    "success": "Success",
+    "successText": "User added successfully",
+    "failure": "Failure"
   }
 }

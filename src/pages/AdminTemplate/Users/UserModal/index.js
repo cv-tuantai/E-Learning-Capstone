@@ -4,45 +4,46 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import Swal from "sweetalert2";
 import { updateUser } from "../../../UserTemplate/Profile/duck/UpdateUser/actions";
 import { addUser } from "../duck/AddUser/action";
-import { getListUsers } from "../duck/ListUsers/actions";
 import * as yup from "yup";
 import "@fortawesome/fontawesome-free/css/all.css";
+import { useTranslation } from "react-i18next";
 
 export default function UserModal(props) {
   const dispatch = useDispatch();
   const { dataUser } = props;
+  const { t } = useTranslation("userTemplate");
 
   const userSchema = yup.object().shape({
     taiKhoan: yup
       .string()
-      .min(2, "* Tài khoản quá ngắn")
-      .max(20, "* Tài khoản không quá 20 ký tự")
-      .required("* Tài khoản không được bỏ trống!"),
+      .min(2, t("profile.accTooShort"))
+      .max(20, t("profile.accNoMore20"))
+      .required(t("profile.accNotBlank")),
     matKhau: yup
       .string()
-      .required("* Mật khẩu không được bỏ trống!")
+      .required(t("profile.passNotBlank"))
       .matches(
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        "* Mật khẩu phải ít nhất 8 tự gồm chữ, số, và kí tự đặc biệt.",
+        t("profile.special"),
       ),
     hoTen: yup
       .string()
-      .required("* Họ tên không được bỏ trống!")
+      .required(t("profile.nameNotBlank"))
       .matches(
         /^[a-zA-Z_ÀÁÂÃÈÉÊẾÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶ" + "ẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợ" + "ụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹý\\s]+$/,
-        "* Chỉ nhập kí tự chữ.",
+        t("profile.character"),
       ),
     soDT: yup
       .string()
-      .required("* Số điện thoại không được bỏ trống!")
+      .required(t("profile.numberNotBlank"))
       .matches(
         /([\+84|84|0]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/,
-        "* Số điện thoại chưa đúng định đạng.",
+        t("profile.numberFormat"),
       ),
     email: yup
       .string()
-      .required("* Email không được bỏ trống!")
-      .email("* Email không đúng định dạng."),
+      .required(t("profile.emailNotBlank"))
+      .email(t("profile.emailFormat")),
   });
 
   return (
@@ -59,7 +60,7 @@ export default function UserModal(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="staticBackdropLabel">
-              {dataUser ? "Cập nhật người dùng" : "Thêm người dùng"}
+              {dataUser ? t("users.updateUser") : t("users.addUser")}
             </h5>
             <button
               type="button"
@@ -84,24 +85,24 @@ export default function UserModal(props) {
               onSubmit={(values) => {
                 Swal.fire({
                   icon: "question",
-                  title: "Xác nhận",
-                  text: "Bạn chắc chắn thực hiện?",
+                  title: t("users.confirm"),
+                  text: t("users.AreYouSure"),
                   showConfirmButton: true,
                   showCancelButton: true,
-                  confirmButtonText: "Đồng ý",
-                  cancelButtonText: "Hủy bỏ",
+                  confirmButtonText: t("users.agree"),
+                  cancelButtonText: t("users.cancel"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     dataUser
-                      ? dispatch(updateUser(values))
-                      : dispatch(addUser(values));
+                      ? dispatch(updateUser(values, t))
+                      : dispatch(addUser(values, t));
                   }
                 });
               }}
             >
               {() => (
                 <Form className="mx-1 mx-md-4">
-                  <label className="form-label ms-5">Tài khoản</label>
+                  <label className="form-label ms-5">{t("users.acc")}</label>
                   <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fas fa-lock fa-lg me-3 fa-fw" />
                     <div className="form-outline flex-fill mb-0">
@@ -109,7 +110,7 @@ export default function UserModal(props) {
                         type="text"
                         name="taiKhoan"
                         className="form-control"
-                        placeholder="Nhập tài khoản của bạn"
+                        placeholder={t("users.accInput")}
                         style={{ fontSize: 15 }}
                         disabled={dataUser}
                       />
@@ -120,7 +121,7 @@ export default function UserModal(props) {
                       />
                     </div>
                   </div>
-                  <label className="form-label ms-5">Mật khẩu</label>
+                  <label className="form-label ms-5">{t("users.pass")}</label>
                   <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fas fa-key fa-lg me-3 fa-fw" />
                     <div className="form-outline flex-fill mb-0">
@@ -128,7 +129,7 @@ export default function UserModal(props) {
                         type="password"
                         name="matKhau"
                         className="form-control"
-                        placeholder="Nhập lại mật khẩu"
+                        placeholder={t("users.passInput")}
                         style={{ fontSize: 15 }}
                       />
                       <ErrorMessage
@@ -138,7 +139,7 @@ export default function UserModal(props) {
                       />
                     </div>
                   </div>
-                  <label className="form-label ms-5">Họ tên</label>
+                  <label className="form-label ms-5">{t("users.name")}</label>
                   <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fas fa-user fa-lg me-3 fa-fw" />
                     <div className="form-outline flex-fill mb-0">
@@ -146,7 +147,7 @@ export default function UserModal(props) {
                         type="text"
                         className="form-control"
                         name="hoTen"
-                        placeholder="Nhập tên của bạn"
+                        placeholder={t("users.nameInput")}
                         style={{ fontSize: 15 }}
                       />
                       <ErrorMessage
@@ -156,7 +157,7 @@ export default function UserModal(props) {
                       />
                     </div>
                   </div>
-                  <label className="form-label ms-5">Số điện thoại</label>
+                  <label className="form-label ms-5">{t("users.phone")}</label>
                   <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fa-solid fa-phone fa-lg me-3 fa-fw"></i>
                     <div className="form-outline flex-fill mb-0">
@@ -164,7 +165,7 @@ export default function UserModal(props) {
                         type="text"
                         name="soDT"
                         className="form-control"
-                        placeholder="Nhập số điện thoại của bạn"
+                        placeholder={t("users.phoneInput")}
                         style={{ fontSize: 15 }}
                       />
                       <ErrorMessage
@@ -182,7 +183,7 @@ export default function UserModal(props) {
                         type="text"
                         name="email"
                         className="form-control"
-                        placeholder="Nhập email của bạn"
+                        placeholder={t("users.emailInput")}
                         style={{ fontSize: 15 }}
                       />
                       <ErrorMessage
@@ -192,7 +193,9 @@ export default function UserModal(props) {
                       />
                     </div>
                   </div>
-                  <label className="form-label ms-5">Loại người dùng</label>
+                  <label className="form-label ms-5">
+                    {t("users.typeUser")}
+                  </label>
                   <div className="d-flex flex-row align-items-center mb-4">
                     <i className="fa-solid fa-users fa-lg me-3 fa-fw" />
                     <div className="form-outline flex-fill mb-0">
@@ -202,14 +205,14 @@ export default function UserModal(props) {
                         className="form-control"
                         style={{ fontSize: 15 }}
                       >
-                        <option value="HV">Học viên</option>
-                        <option value="GV">Giáo vụ</option>
+                        <option value="HV">{t("users.student")}</option>
+                        <option value="GV">{t("users.teacher")}</option>
                       </Field>
                     </div>
                   </div>
                   <div className="modal-footer">
                     <button type="submit" className="btn btn-success">
-                      {dataUser ? "Cập nhật" : "Thêm"}
+                      {dataUser ? t("users.up") : t("users.add")}
                     </button>
                   </div>
                 </Form>

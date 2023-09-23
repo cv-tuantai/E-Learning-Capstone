@@ -8,7 +8,7 @@ import { getUsersUnreg } from "../../../../Courses/RegModalCourse/duck/UsersUnre
 import { getUsersWaitConfirm } from "../../../../Courses/RegModalCourse/duck/UsersWaitConfirm/actions";
 import { getUsersConfirmed } from "../../../../Courses/RegModalCourse/duck/UsersConfirmed/actions";
 
-export const regCourseByAdmin = (data, pathname) => {
+export const regCourseByAdmin = (data, pathname, t) => {
   return (dispatch) => {
     dispatch(regCourseByAdminRequest());
 
@@ -25,11 +25,11 @@ export const regCourseByAdmin = (data, pathname) => {
           dispatch(getUsersWaitConfirm({ maKhoaHoc: data.maKhoaHoc }));
           dispatch(getUsersConfirmed({ maKhoaHoc: data.maKhoaHoc }));
         }
-        Swal.fire("Thành công", "Ghi danh thành công", "success");
+        Swal.fire(t("userModal.success"), t("userModal.regSuccess"), "success");
       })
       .catch((error) => {
         dispatch(regCourseByAdminFail(error));
-        Swal.fire("Thất bại", error.response?.data, "error");
+        Swal.fire(t("userModal.failure"), error.response?.data, "error");
       });
   };
 };

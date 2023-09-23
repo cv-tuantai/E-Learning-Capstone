@@ -125,7 +125,7 @@ export default function CourseModal(props) {
                   showConfirmButton: true,
                   showCancelButton: true,
                   confirmButtonText: t("modal.agree"),
-                  cancelButtonText: t("modal.cancel"),
+                  cancelButtonText: t("courses.cancel"),
                 }).then((result) => {
                   if (result.isConfirmed) {
                     //Tạo formData
@@ -146,9 +146,9 @@ export default function CourseModal(props) {
 
                     dataCourse
                       ? values.hinhAnh?.name
-                        ? dispatch(updateCourse(formData))
-                        : dispatch(updateCourseNoImage(values))
-                      : dispatch(addCourse(formData));
+                        ? dispatch(updateCourse(formData, t))
+                        : dispatch(updateCourseNoImage(values, t))
+                      : dispatch(addCourse(formData, t));
                   }
                 });
               }}
